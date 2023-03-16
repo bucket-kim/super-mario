@@ -1,23 +1,55 @@
 const fragmentShader = `
-varying vec2 vUv;
+#include <common>
+#include <packing>
+#include <fog_pars_fragment>
 
-uniform sampler2D uMap;
+varying vec2 vUv;
+uniform sampler2D tDepth;
+uniform sampler2D tDudv;
+uniform vec3 waterColor;
+uniform vec3 foamColor;
+uniform float cameraNear;
+uniform float cameraFar;
 uniform float uTime;
-uniform vec3 uColor;
+uniform float threshold;
+uniform vec2 resolution;
+
+float getDepth( const in vec2 screenPosition ) {
+  #if DEPTH_PACKING == 1
+    return unpackRGBAToDepth( texture2D( tDepth, screenPosition ) );
+  #else
+    return texture2D( tDepth, screenPosition ).x;
+  #endif
+}
+
+float getViewZ( const in float depth ) {
+  #if ORTHOGRAPHIC_CAMERA == 1
+    return orthographicDepthToViewZ( depth, cameraNear, cameraFar );
+  #else
+    return perspectiveDepthToViewZ( depth, cameraNear, cameraFar );
+  #endif
+}
 
 void main() {
-    vec2 uv = vUv * 10.0 + vec2(uTime * -0.05);
 
-    uv.y += 0.01 * (sin(uv.x * 3.5 + uTime * 0.35) + sin(uv.x * 4.8 + uTime * 1.05) + sin(uv.x * 7.3 + uTime * 0.45)) / 3.0;
-    uv.x += 0.12 * (sin(uv.y * 4.0 + uTime * 0.5) + sin(uv.y * 6.8 + uTime * 0.75) + sin(uv.y * 11.3 + uTime * 0.2)) / 3.0;
-    uv.y += 0.12 * (sin(uv.x * 4.2 + uTime * 0.64) + sin(uv.x * 6.3 + uTime * 1.65) + sin(uv.x * 8.2 + uTime * 0.45)) / 3.0;
+  vec2 screenUV = gl_FragCoord.xy / resolution;
 
-    vec4 tex1 = texture2D(uMap, uv * 1.0);
-    vec4 tex2 = texture2D(uMap, uv * 1.0 + vec2(0.2));
+  float fragmentLinearEyeDepth = getViewZ( gl_FragCoord.z );
+  float linearEyeDepth = getViewZ( getDepth( screenUV ) );
 
-    vec3 blue = uColor;
+  float diff = saturate( fragmentLinearEyeDepth - linearEyeDepth );
 
-    gl_FragColor = vec4(blue + vec3(tex1.a * 0.9 - tex2.a * 0.02), 1.0);
+  vec2 displacement = texture2D( tDudv, ( vUv * 10.0 ) - uTime * 0.05 ).rg;
+  displacement = ( ( displacement * 2.0 ) - 1.0 ) * 1.0;
+  diff += displacement.x;
+
+  gl_FragColor.rgb = mix( foamColor, waterColor, step( threshold, diff ) );
+  gl_FragColor.a = 1.0;
+
+  #include <tonemapping_fragment>
+  #include <encodings_fragment>
+  #include <fog_fragment>
+
 }
 `;
 
