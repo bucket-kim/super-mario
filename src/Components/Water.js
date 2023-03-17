@@ -10,21 +10,13 @@ import fragmentShader from "./shaders/water/fragment";
 const Water = () => {
   const { nodes } = useGLTF("/models/water.glb");
 
-  const { scene, gl, camera } = useThree();
+  const { scene, camera, clock } = useThree();
 
   const waterMesh = useRef();
 
-  const renderer = useMemo(() => {
-    return new THREE.WebGL1Renderer({ antialias: true });
-  }, []);
+  const renderer = new THREE.WebGL1Renderer({ antialias: true });
 
-  const supportsDepthTextureExtension = !!renderer.extensions.get(
-    "WEBGL_depth_texture"
-  );
-
-  const depthMaterial = useMemo(() => {
-    return new THREE.MeshDepthMaterial();
-  });
+  const depthMaterial = new THREE.MeshDepthMaterial();
 
   const uniforms = useMemo(
     () => ({
@@ -55,6 +47,9 @@ const Water = () => {
       waterColor: {
         value: new THREE.Color(),
       },
+      uOverlay: {
+        value: useTexture("./images/alpha.png"),
+      },
     }),
     []
   );
@@ -71,12 +66,10 @@ const Water = () => {
   renderTarget.texture.generateMipmaps = false;
   renderTarget.stencilBuffer = false;
 
-  if (supportsDepthTextureExtension === true) {
-    renderTarget.depthTexture = new THREE.DepthTexture();
-    renderTarget.depthTexture.type = THREE.UnsignedShortType;
-    renderTarget.depthTexture.minFilter = THREE.NearestFilter;
-    renderTarget.depthTexture.maxFilter = THREE.NearestFilter;
-  }
+  renderTarget.depthTexture = new THREE.DepthTexture();
+  renderTarget.depthTexture.type = THREE.UnsignedShortType;
+  renderTarget.depthTexture.minFilter = THREE.NearestFilter;
+  renderTarget.depthTexture.maxFilter = THREE.NearestFilter;
 
   depthMaterial.depthPacking = THREE.RGBADepthPacking;
   depthMaterial.blending = THREE.NoBlending;
@@ -86,13 +79,14 @@ const Water = () => {
   const waterMaterial = useMemo(() => {
     return new THREE.ShaderMaterial({
       defines: {
-        DEPTH_PACKING: supportsDepthTextureExtension === true ? 0 : 1,
+        DEPTH_PACKING: 0,
         ORTHOGRAPHIC_CAMERA: 0,
       },
       uniforms: THREE.UniformsUtils.merge([THREE.UniformsLib["fog"], uniforms]),
       vertexShader: vertexShader,
       fragmentShader: fragmentShader,
       fog: true,
+      transparent: true,
     });
   });
 
@@ -103,42 +97,93 @@ const Water = () => {
     window.innerHeight * pixelRatio
   );
   waterMaterial.uniforms.tDudv.value = dudvMap;
-  waterMaterial.uniforms.tDepth.value =
-    supportsDepthTextureExtension === true
-      ? renderTarget.depthTexture
-      : renderTarget.texture;
+  waterMaterial.uniforms.tDepth.value = renderTarget.depthTexture;
+
+  const onWindowResize = () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    const pixelRatio = renderer.getPixelRatio();
+
+    renderTarget.setSize(
+      window.innerWidth * pixelRatio,
+      window.innerHeight * pixelRatio
+    );
+    waterMaterial.uniforms.resolution.value.set(
+      window.innerWidth * pixelRatio,
+      window.innerHeight * pixelRatio
+    );
+  };
 
   useEffect(() => {
+    waterMaterial.uniforms.cameraNear.value = camera.near;
+    waterMaterial.uniforms.cameraFar.value = camera.far;
+    waterMaterial.uniforms.resolution.value.set(
+      window.innerWidth * pixelRatio,
+      window.innerHeight * pixelRatio
+    );
+    waterMaterial.uniforms.tDudv.value = dudvMap;
+    waterMaterial.uniforms.tDepth.value = renderTarget.depthTexture;
+
+    const onWindowResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      const pixelRatio = renderer.getPixelRatio();
+
+      renderTarget.setSize(
+        window.innerWidth * pixelRatio,
+        window.innerHeight * pixelRatio
+      );
+      waterMaterial.uniforms.resolution.value.set(
+        window.innerWidth * pixelRatio,
+        window.innerHeight * pixelRatio
+      );
+    };
+
     waterMaterial.uniforms.foamColor.value.set(0xffffff);
     waterMaterial.uniforms.waterColor.value.set(0x2085f6);
-  }, [waterMaterial]);
+    window.addEventListener("resize", onWindowResize, false);
 
-  useFrame((state) => {
     waterMesh.current.visible = false;
     scene.overrideMaterial = depthMaterial;
+
     renderer.setRenderTarget(renderTarget);
     renderer.render(scene, camera);
-    waterMaterial.uniforms.uTime.value = state.clock.elapsedTime;
+    renderer.setRenderTarget(null);
 
     scene.overrideMaterial = null;
     waterMesh.current.visible = true;
+  }, [waterMaterial]);
+
+  useFrame((state) => {
+    waterMaterial.uniforms.uTime.value = state.clock.elapsedTime;
   });
 
   return (
     <group ref={waterMesh}>
       <mesh
         geometry={nodes.water_geo.geometry}
-        material={waterMaterial}
+        // material={waterMaterial}
         receiveShadow
         castShadow
-      />
+      >
+        <meshStandardMaterial color={0x2085f6} />
+      </mesh>
       <mesh
         castShadow
         receiveShadow
         material={waterMaterial}
-        geometry={nodes.ocean_geo.geometry}
+        // geometry={nodes.ocean_geo.geometry}
         position={[0, 0.05, 0]}
-      ></mesh>
+        rotation={[-Math.PI * 0.5, 0, -Math.PI * 0.5]}
+      >
+        <planeBufferGeometry args={[60, 60, 100, 100]} />
+      </mesh>
     </group>
   );
 };

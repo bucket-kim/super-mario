@@ -9,8 +9,8 @@ const Models = () => {
     <>
       <Land />
       <Items />
-      <Water />
       <Buttons />
+      <Water />
     </>
   );
 };

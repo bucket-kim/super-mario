@@ -13,6 +13,7 @@ uniform float cameraFar;
 uniform float uTime;
 uniform float threshold;
 uniform vec2 resolution;
+uniform sampler2D uOverlay;
 
 float getDepth( const in vec2 screenPosition ) {
   #if DEPTH_PACKING == 1
@@ -43,8 +44,14 @@ void main() {
   displacement = ( ( displacement * 2.0 ) - 1.0 ) * 1.0;
   diff += displacement.x;
 
-  gl_FragColor.rgb = mix( foamColor, waterColor, step( threshold, diff ) );
-  gl_FragColor.a = 1.0;
+  vec4 overlaySample = texture2D(uOverlay, vUv);
+  
+  vec4 color = vec4(mix( foamColor, waterColor, step( threshold, diff ) ), 1.0);
+
+  vec4 alpha = vec4(overlaySample.w);
+
+  gl_FragColor = color * alpha;
+  
 
   #include <tonemapping_fragment>
   #include <encodings_fragment>
