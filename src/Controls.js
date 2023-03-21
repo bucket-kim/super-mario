@@ -21,7 +21,6 @@ const Controls = () => {
           e.target.target.clamp(minPan, maxPan);
           _v.sub(e.target.target);
           camera.position.sub(_v);
-          console.log(_v);
         }}
       />
     </>

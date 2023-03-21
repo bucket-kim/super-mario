@@ -79,6 +79,12 @@ const Items = () => {
         receiveShadow
         material={itemMaterial[""]}
       />
+      {/* <mesh
+        geometry={nodes.eyeball_geo.geometry}
+        castShadow
+        receiveShadow
+        material={itemMaterial[""]}
+      /> */}
     </>
   );
 };

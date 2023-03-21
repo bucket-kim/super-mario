@@ -75,7 +75,7 @@ const Scene = () => {
         <sphereGeometry args={[200, 200, 64, 64]} />
         <meshBasicMaterial side={THREE.BackSide} map={texture} />
       </mesh>
-      <Models position={[0, -1, 0]} />
+      <Models position={[0, 0, 0]} />
     </>
   );
 };
