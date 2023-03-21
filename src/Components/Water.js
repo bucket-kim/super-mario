@@ -18,41 +18,38 @@ const Water = () => {
 
   const depthMaterial = new THREE.MeshDepthMaterial();
 
-  const uniforms = useMemo(
-    () => ({
-      uTime: {
-        value: 0,
-      },
-      threshold: {
-        value: 0.5,
-      },
-      tDudv: {
-        value: null,
-      },
-      tDepth: {
-        value: null,
-      },
-      cameraNear: {
-        value: 0,
-      },
-      cameraFar: {
-        value: 0,
-      },
-      resolution: {
-        value: new THREE.Vector2(),
-      },
-      foamColor: {
-        value: new THREE.Color(),
-      },
-      waterColor: {
-        value: new THREE.Color(),
-      },
-      uOverlay: {
-        value: useTexture("./images/alpha.png"),
-      },
-    }),
-    []
-  );
+  const uniforms = {
+    uTime: {
+      value: 0,
+    },
+    threshold: {
+      value: 0.5,
+    },
+    tDudv: {
+      value: null,
+    },
+    tDepth: {
+      value: null,
+    },
+    cameraNear: {
+      value: 0,
+    },
+    cameraFar: {
+      value: 0,
+    },
+    resolution: {
+      value: new THREE.Vector2(),
+    },
+    foamColor: {
+      value: new THREE.Color(),
+    },
+    waterColor: {
+      value: new THREE.Color(),
+    },
+    uOverlay: {
+      value: useTexture("./images/alpha.png"),
+    },
+  };
 
   const dudvMap = useTexture("https://i.imgur.com/hOIsXiZ.png");
 
@@ -88,7 +85,7 @@ const Water = () => {
       fog: true,
       transparent: true,
     });
-  });
+  }, []);
 
   waterMaterial.uniforms.cameraNear.value = camera.near;
   waterMaterial.uniforms.cameraFar.value = camera.far;
@@ -99,24 +96,6 @@ const Water = () => {
   waterMaterial.uniforms.tDudv.value = dudvMap;
   waterMaterial.uniforms.tDepth.value = renderTarget.depthTexture;
 
-  const onWindowResize = () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-    const pixelRatio = renderer.getPixelRatio();
-
-    renderTarget.setSize(
-      window.innerWidth * pixelRatio,
-      window.innerHeight * pixelRatio
-    );
-    waterMaterial.uniforms.resolution.value.set(
-      window.innerWidth * pixelRatio,
-      window.innerHeight * pixelRatio
-    );
-  };
-
   useEffect(() => {
     waterMaterial.uniforms.cameraNear.value = camera.near;
     waterMaterial.uniforms.cameraFar.value = camera.far;
@@ -126,15 +105,11 @@ const Water = () => {
     );
     waterMaterial.uniforms.tDudv.value = dudvMap;
     waterMaterial.uniforms.tDepth.value = renderTarget.depthTexture;
-
     const onWindowResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
-
       renderer.setSize(window.innerWidth, window.innerHeight);
-
       const pixelRatio = renderer.getPixelRatio();
-
       renderTarget.setSize(
         window.innerWidth * pixelRatio,
         window.innerHeight * pixelRatio
@@ -144,20 +119,17 @@ const Water = () => {
         window.innerHeight * pixelRatio
       );
     };
+    waterMaterial.uniforms.waterColor.value.set(0xffffff);
+    waterMaterial.uniforms.foamColor.value.set(0x2085f6);
+    window.addEventListener("resize", onWindowResize);
 
-    waterMaterial.uniforms.foamColor.value.set(0xffffff);
-    waterMaterial.uniforms.waterColor.value.set(0x2085f6);
-    window.addEventListener("resize", onWindowResize, false);
-
-    waterMesh.current.visible = false;
-    scene.overrideMaterial = depthMaterial;
-
-    renderer.setRenderTarget(renderTarget);
-    renderer.render(scene, camera);
-    renderer.setRenderTarget(null);
-
-    scene.overrideMaterial = null;
-    waterMesh.current.visible = true;
+    // waterMesh.current.visible = false;
+    // scene.overrideMaterial = depthMaterial;
+    // renderer.setRenderTarget(renderTarget);
+    // renderer.render(scene, camera);
+    // renderer.setRenderTarget(null);
+    // scene.overrideMaterial = null;
+    // waterMesh.current.visible = true;
   }, [waterMaterial]);
 
   useFrame((state) => {
@@ -165,10 +137,10 @@ const Water = () => {
   });
 
   return (
-    <group ref={waterMesh}>
+    <group>
       <mesh
         geometry={nodes.water_geo.geometry}
-        // material={waterMaterial}
+        material={waterMaterial}
         receiveShadow
         castShadow
       >
@@ -178,11 +150,10 @@ const Water = () => {
         castShadow
         receiveShadow
         material={waterMaterial}
-        // geometry={nodes.ocean_geo.geometry}
         position={[0, 0.05, 0]}
         rotation={[-Math.PI * 0.5, 0, -Math.PI * 0.5]}
       >
-        <planeBufferGeometry args={[60, 60, 100, 100]} />
+        <planeGeometry args={[60, 60, 100, 100]} />
       </mesh>
     </group>
   );

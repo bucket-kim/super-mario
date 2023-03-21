@@ -29,7 +29,6 @@ const Land = () => {
           clearcoatNormalMap={normalMap}
           aoMap={aoMap}
           aoMapIntensity={0.5}
-          ao
           side={THREE.DoubleSide}
         />
       </mesh>

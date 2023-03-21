@@ -1,12 +1,27 @@
-import { Environment, Lightformer } from "@react-three/drei";
-import React from "react";
+import { Environment, Lightformer, useTexture } from "@react-three/drei";
+import React, { useEffect, useRef } from "react";
 import Models from "./Models";
+import * as THREE from "three";
+import { useThree } from "@react-three/fiber";
 
 const Scene = () => {
+  const texture = useTexture("./images/toonSky.png");
+  texture.encoding = THREE.sRGBEncoding;
+  const { camera } = useThree();
+
   return (
     <>
-      <Environment files={"/images/sky2.hdr"} background />
-      {/* <Environment files={"./images/sky4.hdr"} background /> */}
+      <Environment
+        // path={"/images/toonSky/"}
+        // files={["px.png", "nx.png", "py.png", "ny.png", "pz.png", "nz.png"]}
+        files={"./images/toonSky2.hdr"}
+        encoding={THREE.sRGBEncoding}
+        background
+        near={1}
+        far={1000}
+        resolution={516}
+        position={[0, -10, 0]}
+      />
       <ambientLight intensity={0.5} />
       <directionalLight
         position={[-10, 20, 5]}
@@ -56,7 +71,11 @@ const Scene = () => {
           />
         </group>
       </Environment>
-      <Models />
+      <mesh position={[0, -20, 0]} rotation={[0, -Math.PI * 1.4, 0]}>
+        <sphereGeometry args={[200, 200, 64, 64]} />
+        <meshBasicMaterial side={THREE.BackSide} map={texture} />
+      </mesh>
+      <Models position={[0, 0, 0]} />
     </>
   );
 };

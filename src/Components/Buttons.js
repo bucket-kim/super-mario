@@ -3,9 +3,6 @@
 import { Html, useGLTF, useTexture } from "@react-three/drei";
 import React, { useMemo, useRef, useState } from "react";
 import * as THREE from "three";
-import datas from "../datas.js";
-
-console.log(datas);
 
 const Buttons = () => {
   const { scene } = useGLTF("/models/buttons.glb");
@@ -22,7 +19,6 @@ const Buttons = () => {
           obj.castShadow = true;
           obj.receiveShadow = true;
           obj.material.map = colorMap;
-          console.log(obj.position);
         }
       }),
     [scene]

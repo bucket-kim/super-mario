@@ -1,8 +1,10 @@
 import "./App.css";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import Scene from "./Components/Scene";
 import * as THREE from "three";
+import { useEffect, useRef } from "react";
+import Controls from "./Controls";
 
 function App() {
   return (
@@ -16,7 +18,12 @@ function App() {
           outputEncoding: THREE.sRGBEncoding,
         }}
       >
-        <OrbitControls />
+        <Controls />
+        <OrbitControls
+          maxPolarAngle={Math.PI * 0.5}
+          maxDistance={12}
+          minDistance={3}
+        />
         <Scene />
       </Canvas>
     </>
