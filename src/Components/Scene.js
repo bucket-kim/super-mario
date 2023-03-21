@@ -5,7 +5,7 @@ import * as THREE from "three";
 import { useThree } from "@react-three/fiber";
 
 const Scene = () => {
-  const texture = useTexture("./images/toonSky.png");
+  const texture = useTexture("./images/toonSky2.png");
   texture.encoding = THREE.sRGBEncoding;
   const { camera } = useThree();
 
@@ -75,7 +75,7 @@ const Scene = () => {
         <sphereGeometry args={[200, 200, 64, 64]} />
         <meshBasicMaterial side={THREE.BackSide} map={texture} />
       </mesh>
-      <Models position={[0, 0, 0]} />
+      <Models position={[0, -1, 0]} />
     </>
   );
 };
