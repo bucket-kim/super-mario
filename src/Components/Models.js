@@ -12,7 +12,7 @@ const Models = (props) => {
       <Items />
       <Buttons />
       <Water />
-      <Cloud />
+      <Cloud />/
     </group>
   );
 };
