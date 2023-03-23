@@ -51,23 +51,25 @@ const Scene = () => {
             />
           ))}
           <Lightformer
-            intensity={1}
+            intensity={6}
             rotation-y={Math.PI / 2}
             position={[-5, -1, -1]}
             scale={[50, 2, 1]}
-            color={0x0093dd}
+            color={0xcce8ff}
           />
           <Lightformer
             intensity={4}
             rotation-y={Math.PI / 2}
             position={[-5, -5, -1]}
             scale={[50, 2, 1]}
+            // color={0x2085f6}
           />
           <Lightformer
-            intensity={2}
+            intensity={4}
             rotation-y={-Math.PI / 2}
             position={[10, 1, 0]}
             scale={[50, 2, 1]}
+            color={0x67aefc}
           />
         </group>
       </Environment>

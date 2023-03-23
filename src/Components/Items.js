@@ -9,7 +9,9 @@ import { useFrame } from "@react-three/fiber";
 const Items = () => {
   const { nodes, materials } = useGLTF("/models/items.glb");
 
-  const [click, setClick] = useState(false);
+  const [yellowClick, setYellowClick] = useState(false);
+  const [greenClick, setGreenClick] = useState(false);
+  const [blueClick, setBlueClick] = useState(false);
 
   const colorMap = useTexture("/images/textures/items/items_BaseColor.png");
   const roughnessMap = useTexture("/images/textures/items/items_Roughness.png");
@@ -56,13 +58,13 @@ const Items = () => {
 
   useFrame(() => {
     gsap.to(yellowButtonRef.current.position, {
-      y: click ? 2.02703 - 0.05 : 2.02703,
+      y: yellowClick ? 2.02703 - 0.05 : 2.02703,
     });
     gsap.to(greenButtonRef.current.position, {
-      y: click ? 0.988629 - 0.05 : 0.988629,
+      y: greenClick ? 0.988629 - 0.05 : 0.988629,
     });
     gsap.to(blueButtonRef.current.position, {
-      y: click ? 0.98863 - 0.05 : 0.98863,
+      y: blueClick ? 0.98863 - 0.05 : 0.98863,
     });
   });
 
@@ -77,10 +79,10 @@ const Items = () => {
       <mesh
         ref={yellowButtonRef}
         onPointerDown={() => {
-          setClick(true);
+          setYellowClick(true);
         }}
         onPointerUp={() => {
-          setClick(false);
+          setYellowClick(false);
         }}
         geometry={nodes.yellowButton_geo.geometry}
         castShadow
@@ -92,10 +94,10 @@ const Items = () => {
         geometry={nodes.greenButton_geo.geometry}
         ref={greenButtonRef}
         onPointerDown={() => {
-          setClick(true);
+          setGreenClick(true);
         }}
         onPointerUp={() => {
-          setClick(false);
+          setGreenClick(false);
         }}
         castShadow
         receiveShadow
@@ -106,10 +108,10 @@ const Items = () => {
         geometry={nodes.blueButton_geo.geometry}
         ref={blueButtonRef}
         onPointerDown={() => {
-          setClick(true);
+          setBlueClick(true);
         }}
         onPointerUp={() => {
-          setClick(false);
+          setBlueClick(false);
         }}
         castShadow
         receiveShadow
