@@ -28,33 +28,14 @@ const Buttons = (props) => {
   }, [scene]);
 
   return (
-    // <group
-    //    onPointerEnter={() => {
-    //     setButtonHover(true);
-    //   }}
-    //   onPointerLeave={() => {
-    //     setButtonHover(false);
-    //   }}
-    // >
-
-    //   <mesh
-    //     geometry={nodes.button01.geometry}
-    //     position={[-3.9406771659851074, 0.5476543307304382, 2.7853219509124756]}
-    //     material={material}
-    //   >
     <>
-      <primitive
-        object={scene}
-        onPointerEnter={() => {
-          setButtonHover(true);
-        }}
-        onPointerLeave={() => {
-          setButtonHover(false);
-        }}
-      />
 
-      {/* {datas.map((data) => {
+      {datas.map((data) => {
         return (
+          <>
+          <mesh>
+            
+          </mesh>
           <Html
             wrapperClass="label"
             occlude
@@ -70,11 +51,10 @@ const Buttons = (props) => {
             <p>{data.information}</p>
             <img src={data.image} alt="" />
           </Html>
+          </>
         );
-      })} */}
+      })}
     </>
-    // </mesh>
-    // </group>
   );
 };
 
