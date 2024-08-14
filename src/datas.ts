@@ -1,8 +1,21 @@
-const datas = [
+interface ButtonData {
+  key: number;
+  name: string;
+  position: [number, number, number];
+  title: string;
+  information: string;
+  image: string;
+}
+
+const datas: ButtonData[] = [
   {
     key: 1,
-    name: "button01",
-    position: [-3.9406771659851074, 0.5476543307304382, 2.7853219509124756],
+    name: "button_01",
+    position: [-3.9406771659851074, 0.5476543307304382, 2.7853219509124756] as [
+      number,
+      number,
+      number,
+    ],
     title: "Yoshi's Island 1",
     information:
       " First Level of the game. It's the only way to reach the Yellow Switch to activate the yellow block. The level has a grassland theme.",
@@ -10,8 +23,12 @@ const datas = [
   },
   {
     key: 2,
-    name: "button02",
-    position: [-2.882596015930176, 0.5476542115211487, 2.7853217124938965],
+    name: "button_02",
+    position: [-2.882596015930176, 0.5476542115211487, 2.7853217124938965] as [
+      number,
+      number,
+      number,
+    ],
     title: "Yoshi's Island 2",
     information:
       " Second Level of the game. This level introduces more characters, such as Yoshi, Monty Moles, Koopa, Berries, and Beanstalks. The level has agrassland theme.",
@@ -19,8 +36,12 @@ const datas = [
   },
   {
     key: 3,
-    name: "button03",
-    position: [-2.882596492767334, 0.5476543307304382, 2.449998378753662],
+    name: "button_03",
+    position: [-2.882596492767334, 0.5476543307304382, 2.449998378753662] as [
+      number,
+      number,
+      number,
+    ],
 
     title: "Yoshi's Island 3",
     information:
@@ -29,8 +50,12 @@ const datas = [
   },
   {
     key: 4,
-    name: "button04",
-    position: [-2.581258535385132, 0.5476543307304382, 2.1237380504608154],
+    name: "button_04",
+    position: [-2.581258535385132, 0.5476543307304382, 2.1237380504608154] as [
+      number,
+      number,
+      number,
+    ],
 
     title: "Yoshi's Island 4",
     information:
@@ -39,8 +64,12 @@ const datas = [
   },
   {
     key: 5,
-    name: "button05",
-    position: [-1.0614168643951416, 1.997063398361206, -3.163473606109619],
+    name: "button_05",
+    position: [-1.0614168643951416, 1.997063398361206, -3.163473606109619] as [
+      number,
+      number,
+      number,
+    ],
 
     title: "Donut Plains 1",
     information:
@@ -49,8 +78,10 @@ const datas = [
   },
   {
     key: 6,
-    name: "button06",
-    position: [-3.5446956157684326, 0.9748174548149109, -0.7820307016372681],
+    name: "button_06",
+    position: [
+      -3.5446956157684326, 0.9748174548149109, -0.7820307016372681,
+    ] as [number, number, number],
     title: "Donut Plains 2",
     information:
       "  Underground Level of the Donut Plains. There are three exits in this level. It's the only way to get to the Green Switch.",
@@ -58,8 +89,10 @@ const datas = [
   },
   {
     key: 7,
-    name: "button07",
-    position: [-1.9456076622009277, 0.9748174548149109, -1.7408933639526367],
+    name: "button_07",
+    position: [
+      -1.9456076622009277, 0.9748174548149109, -1.7408933639526367,
+    ] as [number, number, number],
 
     title: "Donut Plains 3",
     information:
@@ -68,8 +101,10 @@ const datas = [
   },
   {
     key: 8,
-    name: "button08",
-    position: [-1.3177874088287354, 0.9748174548149109, -1.1911437511444092],
+    name: "button_08",
+    position: [
+      -1.3177874088287354, 0.9748174548149109, -1.1911437511444092,
+    ] as [number, number, number],
 
     title: "Donut Plains 4",
     information:
@@ -78,8 +113,12 @@ const datas = [
   },
   {
     key: 9,
-    name: "button09",
-    position: [-1.0614168643951416, 1.997063398361206, -3.163473606109619],
+    name: "button_09",
+    position: [-1.0614168643951416, 1.997063398361206, -3.163473606109619] as [
+      number,
+      number,
+      number,
+    ],
     title: "Vanilla Secret 2",
     information:
       " This level is accessed by taking a secret path that leads to the mountain top. it contains high cloud background, accessible only by caped Mario.",
@@ -87,8 +126,12 @@ const datas = [
   },
   {
     key: 10,
-    name: "button10",
-    position: [-0.5428133010864258, 1.997063398361206, -3.1634738445281982],
+    name: "button_10",
+    position: [-0.5428133010864258, 1.997063398361206, -3.1634738445281982] as [
+      number,
+      number,
+      number,
+    ],
 
     title: "Vanilla Secret 3",
     information:
@@ -97,8 +140,12 @@ const datas = [
   },
   {
     key: 11,
-    name: "button11",
-    position: [1.1417049169540405, 1.957991600036621, -3.2115283012390137],
+    name: "button_11",
+    position: [1.1417049169540405, 1.957991600036621, -3.2115283012390137] as [
+      number,
+      number,
+      number,
+    ],
 
     title: "Butter Bridge 1",
     information:
@@ -107,8 +154,12 @@ const datas = [
   },
   {
     key: 12,
-    name: "button12",
-    position: [1.0735080242156982, 1.3017635345458984, -2.943187713623047],
+    name: "button_12",
+    position: [1.0735080242156982, 1.3017635345458984, -2.943187713623047] as [
+      number,
+      number,
+      number,
+    ],
 
     title: "Cheese Bridge Area",
     information:
@@ -117,8 +168,12 @@ const datas = [
   },
   {
     key: 13,
-    name: "button13",
-    position: [1.8374665975570679, 1.957991600036621, -3.2115283012390137],
+    name: "button_13",
+    position: [1.8374665975570679, 1.957991600036621, -3.2115283012390137] as [
+      number,
+      number,
+      number,
+    ],
 
     title: "Butter Bridge 2",
     information:
@@ -127,8 +182,12 @@ const datas = [
   },
   {
     key: 14,
-    name: "button14",
-    position: [1.9582619667053223, 1.306661605834961, -2.9483654499053955],
+    name: "button_14",
+    position: [1.9582619667053223, 1.306661605834961, -2.9483654499053955] as [
+      number,
+      number,
+      number,
+    ],
 
     title: "Cookie Mountain",
     information:
@@ -137,8 +196,12 @@ const datas = [
   },
   {
     key: 15,
-    name: "button15",
-    position: [3.3343489170074463, 0.9784248471260071, -1.4220917224884033],
+    name: "button_15",
+    position: [3.3343489170074463, 0.9784248471260071, -1.4220917224884033] as [
+      number,
+      number,
+      number,
+    ],
 
     title: "Forest of Illusion 1",
     information:
@@ -148,8 +211,12 @@ const datas = [
   },
   {
     key: 16,
-    name: "button16",
-    position: [3.719190835952759, 0.9784248471260071, -0.8137019872665405],
+    name: "button_16",
+    position: [3.719190835952759, 0.9784248471260071, -0.8137019872665405] as [
+      number,
+      number,
+      number,
+    ],
 
     title: "Forest of Illusion 2",
     information:
@@ -158,8 +225,12 @@ const datas = [
   },
   {
     key: 17,
-    name: "button17",
-    position: [3.3286898136138916, 0.9784248471260071, -0.4373491406440735],
+    name: "button_17",
+    position: [3.3286898136138916, 0.9784248471260071, -0.4373491406440735] as [
+      number,
+      number,
+      number,
+    ],
 
     title: "Forest of Illusion 4",
     information:
@@ -168,8 +239,12 @@ const datas = [
   },
   {
     key: 18,
-    name: "button18",
-    position: [2.522219181060791, 0.9784249663352966, -0.8137020468711853],
+    name: "button_18",
+    position: [2.522219181060791, 0.9784249663352966, -0.8137020468711853] as [
+      number,
+      number,
+      number,
+    ],
 
     title: "Forest of Illusion 3",
     information:
@@ -178,8 +253,12 @@ const datas = [
   },
   {
     key: 19,
-    name: "button19",
-    position: [2.522219181060791, 0.9784248471260071, -0.4373491406440735],
+    name: "button_19",
+    position: [2.522219181060791, 0.9784248471260071, -0.4373491406440735] as [
+      number,
+      number,
+      number,
+    ],
 
     title: "Forest Secret Area",
     information:
@@ -188,8 +267,12 @@ const datas = [
   },
   {
     key: 20,
-    name: "button20",
-    position: [2.217322826385498, 0.9784248471260071, 1.6563483476638794],
+    name: "button_20",
+    position: [2.217322826385498, 0.9784248471260071, 1.6563483476638794] as [
+      number,
+      number,
+      number,
+    ],
 
     title: "Chocolate Island 1",
     information:
@@ -198,8 +281,12 @@ const datas = [
   },
   {
     key: 21,
-    name: "button21",
-    position: [1.4342082738876343, 0.3854479193687439, 2.963130474090576],
+    name: "button_21",
+    position: [1.4342082738876343, 0.3854479193687439, 2.963130474090576] as [
+      number,
+      number,
+      number,
+    ],
 
     title: "Chocolate Island 2",
     information:
@@ -208,8 +295,12 @@ const datas = [
   },
   {
     key: 22,
-    name: "button22",
-    position: [0.8705532550811768, 0.3854479193687439, 2.963130474090576],
+    name: "button_22",
+    position: [0.8705532550811768, 0.3854479193687439, 2.963130474090576] as [
+      number,
+      number,
+      number,
+    ],
 
     title: "Chocolate Island 3",
     information:
@@ -218,8 +309,12 @@ const datas = [
   },
   {
     key: 23,
-    name: "button23",
-    position: [-0.2134048044681549, 0.3835093379020691, 3.496480703353882],
+    name: "button_23",
+    position: [-0.2134048044681549, 0.3835093379020691, 3.496480703353882] as [
+      number,
+      number,
+      number,
+    ],
 
     title: "Chocolate Island 4",
     information:
@@ -228,8 +323,12 @@ const datas = [
   },
   {
     key: 24,
-    name: "button24",
-    position: [-0.9949547052383423, 0.3835093379020691, 3.496480703353882],
+    name: "button_24",
+    position: [-0.9949547052383423, 0.3835093379020691, 3.496480703353882] as [
+      number,
+      number,
+      number,
+    ],
 
     title: "Chocolate Island 5",
     information:
@@ -238,8 +337,10 @@ const datas = [
   },
   {
     key: 25,
-    name: "button25",
-    position: [-0.5114535093307495, 0.0037446022033691406, 1.860524296760559],
+    name: "button_25",
+    position: [
+      -0.5114535093307495, 0.0037446022033691406, 1.860524296760559,
+    ] as [number, number, number],
 
     title: "Chocolate Secret",
     information:
