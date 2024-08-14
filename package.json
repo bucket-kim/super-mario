@@ -19,6 +19,7 @@
     "prettier-plugin-organize-imports": "^3.2.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "resolve-lygia": "^1.0.4",
     "styled-components": "^6.1.11",
     "three": "^0.165.0",
     "vercel": "^34.2.8",

@@ -50,9 +50,17 @@ const ButtonInfos: FC<ButtonDetailsProps> = ({ data }) => {
 
   return (
     <ButtonInfosStyleContainer ref={htmlRef} key={data.key}>
-      <h1>{data.title}</h1>
-      <p>{data.information}</p>
-      <img src={data.image} alt={data.name} />
+      <div className="info-container">
+        <div className="img-content">
+          <img src={data.image} alt={data.name} />
+        </div>
+        <div className="title-content">
+          <h1>- {data.title} -</h1>
+        </div>
+        <div className="info-content">
+          <p>{data.information}</p>
+        </div>
+      </div>
     </ButtonInfosStyleContainer>
   );
 };

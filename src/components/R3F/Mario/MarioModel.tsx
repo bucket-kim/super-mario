@@ -124,7 +124,7 @@ const MarioModel = (props: any) => {
         landMaterial={landMaterial}
         itemMaterial={itemMaterial}
       />
-      <Water nodes={nodes} />
+      <Water nodes={nodes} position={[0, 0.0, 0.0]} />
     </group>
   );
 };

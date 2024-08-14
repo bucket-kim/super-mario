@@ -1,6 +1,7 @@
 import { memo, ReactNode } from "react";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 
+// eslint-disable-next-line react-refresh/only-export-components
 const Theme = {
   light4HGreen: "#339966",
   dark4HGreen: "#004438",
@@ -8,7 +9,23 @@ const Theme = {
   light4hred: "#F54359",
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 const GlobalStyles = createGlobalStyle`
+
+@font-face {
+  font-family:   -apple-system,
+            -apple-system,
+            BlinkMacSystemFont,
+            'Segoe UI',
+            Roboto,
+            Oxygen,
+            Ubuntu,
+            Cantarell,
+            'Open Sans',
+            'Helvetica Neue',
+            sans-serif;
+}
+
     * {
         -webkit-tap-highlight-color: transparent;
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);

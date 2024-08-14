@@ -15,13 +15,13 @@ const Lights = ({ ...props }) => {
         position={[-10, 20, 5]}
         castShadow
         shadow-mapSize={[1024, 1024]}
-        shadow-bias={-0.0001}
+        // shadow-bias={-0.00001}
         intensity={1}
       />
       <Environment resolution={256}>
         <group rotation={[-Math.PI / 2, 0, 0]}>
           <Lightformer
-            intensity={2}
+            intensity={4}
             rotation-x={Math.PI / 2}
             position={[0, 5, -10]}
             scale={[10, 10, 1]}
@@ -39,7 +39,7 @@ const Lights = ({ ...props }) => {
             />
           ))}
           <Lightformer
-            intensity={6}
+            intensity={10}
             rotation-y={Math.PI / 2}
             position={[-5, -1, -1]}
             scale={[50, 2, 1]}
