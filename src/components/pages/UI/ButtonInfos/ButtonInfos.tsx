@@ -46,8 +46,6 @@ const ButtonInfos: FC<ButtonDetailsProps> = ({ data }) => {
     }
   }, [buttonIndex]);
 
-  console.log(buttonIndex);
-
   return (
     <ButtonInfosStyleContainer ref={htmlRef} key={data.key}>
       <div className="info-container">

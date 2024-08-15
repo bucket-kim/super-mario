@@ -4,8 +4,8 @@ import UIStyleContainer from "./UIStyleContainer";
 const UI = () => {
   return (
     <UIStyleContainer>
-      {datas.map((data) => (
-        <ButtonInfos data={data} />
+      {datas.map((data, index) => (
+        <ButtonInfos data={data} key={index} />
       ))}
     </UIStyleContainer>
   );

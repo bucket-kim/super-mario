@@ -22,16 +22,18 @@ const R3FPage = () => {
           toneMapping: ACESFilmicToneMapping,
           powerPreference: "high-performance",
         }}
-        camera={{ position: [0, 3, 4] }}
+        camera={{ position: [0, 4, 12], fov: 35 }}
       >
         <CameraControls
           minDistance={5}
-          maxDistance={32}
+          maxDistance={24}
           minPolarAngle={degToRad(-10)}
           maxPolarAngle={degToRad(80)}
+          maxAzimuthAngle={degToRad(40)}
+          minAzimuthAngle={degToRad(-5)}
         />
         <Lights />
-        <MarioModel position={[0, -1, 0]} />
+        <MarioModel position={[0, 0, 0]} />
       </Canvas>
     </R3FPageStyleContainer>
   );

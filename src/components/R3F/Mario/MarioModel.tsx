@@ -118,15 +118,15 @@ const MarioModel = (props: any) => {
 
   return (
     <group {...props} dispose={null}>
+      <Buttons nodes={nodes} />
+      <Clouds nodes={nodes} />
+      <ColorButtons nodes={nodes} buttonMaterial={itemMaterial} />
       <Land
         nodes={nodes}
         landMaterial={landMaterial}
         itemMaterial={itemMaterial}
       />
       <Water nodes={nodes} position={[0, 0.0, 0.0]} />
-      <Buttons nodes={nodes} />
-      <Clouds nodes={nodes} />
-      <ColorButtons nodes={nodes} buttonMaterial={itemMaterial} />
       {/* <mesh scale={4}>
         <boxGeometry />
         <meshStandardMaterial />
