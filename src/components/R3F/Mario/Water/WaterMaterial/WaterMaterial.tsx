@@ -41,9 +41,10 @@ void main() {
 
   float adjustTime = uTime * uSpeed;
 
-  // noise generate
-  float noise = pnoise(vec3(vUv * uRepeat, adjustTime * 0.5), vec3(100.0, 24.0, 112.0));
+  float noise = 0.0;
 
+  // noise generate
+  noise = pnoise(vec3(vUv * uRepeat, adjustTime * 0.5), vec3(100.0, 24.0, 112.0));
   // depth
   vec2 screenUV = gl_FragCoord.xy / uResolution;
   float fragmentLinearEyeDepth = getViewZ(gl_FragCoord.z);
@@ -51,7 +52,7 @@ void main() {
   
   float depth = fragmentLinearEyeDepth - linearEyeDepth;
   noise += smoothstep(uMaxDepth, 0.0, depth);
-  
+
   // foam
   noise = smoothstep(uFoam, uFoamTop, noise);
 
@@ -63,6 +64,11 @@ void main() {
   finalColor = mix(uColor, intermediatColor, step(0.01, noise));
   finalColor = mix (finalColor, topColor, step(1.0, noise));
 
+  // if (depth > uMaxDepth) {
+  //   finalColor = vec3(1.0, 0.0, 0.0);
+  // } else {
+  //   finalColor = vec3(depth);
+  // }
 
   gl_FragColor = vec4(finalColor, uOpacity);
 

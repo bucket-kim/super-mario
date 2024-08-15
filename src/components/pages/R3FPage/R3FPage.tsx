@@ -1,6 +1,7 @@
-import { OrbitControls } from "@react-three/drei";
+import { CameraControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { ACESFilmicToneMapping, SRGBColorSpace } from "three";
+import { degToRad } from "three/src/math/MathUtils.js";
 import Lights from "../../R3F/Lights/Lights";
 import MarioModel from "../../R3F/Mario/MarioModel";
 import R3FPageStyleContainer from "./R3FPageStyleContainer";
@@ -16,15 +17,19 @@ const R3FPage = () => {
           alpha: true,
           stencil: true,
           antialias: true,
-          autoClear: false,
-          autoClearDepth: false,
           toneMappingExposure: 1,
           outputColorSpace: SRGBColorSpace,
           toneMapping: ACESFilmicToneMapping,
           powerPreference: "high-performance",
         }}
+        camera={{ position: [0, 3, 4] }}
       >
-        <OrbitControls />
+        <CameraControls
+          minDistance={5}
+          maxDistance={32}
+          minPolarAngle={degToRad(-10)}
+          maxPolarAngle={degToRad(80)}
+        />
         <Lights />
         <MarioModel position={[0, -1, 0]} />
       </Canvas>

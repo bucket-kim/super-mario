@@ -50,6 +50,7 @@ type GLTFResult = GLTF & {
     land_geo: THREE.Mesh;
     ocean_geo: THREE.Mesh;
     water_geo: THREE.Mesh;
+    lake_geo: THREE.Mesh;
     greenButton_geo: THREE.Mesh;
     yellowButton_geo: THREE.Mesh;
   };
@@ -83,6 +84,7 @@ const MarioModel = (props: any) => {
       normalMap: landNormalMap,
       aoMap: landAoMap,
       aoMapIntensity: 0.2,
+      side: THREE.DoubleSide,
     });
 
     landColorMap.flipY = false;
@@ -116,15 +118,19 @@ const MarioModel = (props: any) => {
 
   return (
     <group {...props} dispose={null}>
-      <Buttons nodes={nodes} />
-      <Clouds nodes={nodes} />
-      <ColorButtons nodes={nodes} buttonMaterial={itemMaterial} />
       <Land
         nodes={nodes}
         landMaterial={landMaterial}
         itemMaterial={itemMaterial}
       />
       <Water nodes={nodes} position={[0, 0.0, 0.0]} />
+      <Buttons nodes={nodes} />
+      <Clouds nodes={nodes} />
+      <ColorButtons nodes={nodes} buttonMaterial={itemMaterial} />
+      {/* <mesh scale={4}>
+        <boxGeometry />
+        <meshStandardMaterial />
+      </mesh> */}
     </group>
   );
 };

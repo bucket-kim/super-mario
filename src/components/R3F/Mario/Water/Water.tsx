@@ -15,6 +15,7 @@ type GLTFResult = GLTF & {
   nodes: {
     ocean_geo: THREE.Mesh;
     water_geo: THREE.Mesh;
+    lake_geo: THREE.Mesh;
   };
 };
 
@@ -24,8 +25,12 @@ interface WaterProps {
 }
 
 const Water: FC<WaterProps> = ({ nodes, ...props }) => {
-  const waterRef = useRef<THREE.ShaderMaterial>(null);
-  const oceanRef = useRef<THREE.ShaderMaterial>(null);
+  const waterRef = useRef<THREE.Mesh>(null);
+  const waterMaterialRef = useRef<THREE.ShaderMaterial>(null);
+  const oceanRef = useRef<THREE.Mesh>(null);
+  const oceanMaterialRef = useRef<THREE.ShaderMaterial>(null);
+  const lakeRef = useRef<THREE.Mesh>(null);
+  const lakeMaterialRef = useRef<THREE.ShaderMaterial>(null);
 
   const depthMaterial = new MeshDepthMaterial();
   depthMaterial.depthPacking = RGBADepthPacking;
@@ -38,68 +43,99 @@ const Water: FC<WaterProps> = ({ nodes, ...props }) => {
 
   useFrame(({ gl, scene, camera, clock }) => {
     const elapsedTime = clock.getElapsedTime();
-    if (!waterRef.current || !oceanRef.current) return;
+    if (
+      !oceanRef.current ||
+      !oceanMaterialRef.current ||
+      !waterRef.current ||
+      !waterMaterialRef.current ||
+      !lakeRef.current ||
+      !lakeMaterialRef.current
+    )
+      return;
 
     // hide the water mesh and render the scene to the target
-    waterRef.current.visible = false;
+
     oceanRef.current.visible = false;
+    waterRef.current.visible = false;
+    lakeRef.current.visible = false;
+
     gl.setRenderTarget(renderTarget);
     scene.overrideMaterial = depthMaterial;
     gl.render(scene, camera);
 
     // reset the scene and show the water mesh
     scene.overrideMaterial = null;
-    waterRef.current.visible = true;
     oceanRef.current.visible = true;
+    waterRef.current.visible = true;
+    lakeRef.current.visible = true;
     gl.setRenderTarget(null);
 
-    const pixelRatio = gl.getPixelRatio();
     // set uniforms
-    // waterRef.current.uniforms.uTime.value = elapsedTime;
-    // waterRef.current.uniforms.uDepth.value = renderTarget.texture;
-    // waterRef.current.uniforms.uResolution.value = [
-    //   window.innerWidth * pixelRatio,
-    //   window.innerHeight * pixelRatio,
-    // ];
-    // waterRef.current.uniforms.uCameraNear.value = camera.near;
-    // waterRef.current.uniforms.uCameraFar.value = camera.far;
 
-    // ocean uniforms
-    oceanRef.current.uniforms.uTime.value = elapsedTime;
-    oceanRef.current.uniforms.uDepth.value = renderTarget.texture;
-    oceanRef.current.uniforms.uResolution.value = [
+    // water uniforms
+    waterMaterialRef.current.uniforms.uTime.value = elapsedTime;
+    waterMaterialRef.current.uniforms.uDepth.value = renderTarget.texture;
+
+    lakeMaterialRef.current.uniforms.uTime.value = elapsedTime;
+    lakeMaterialRef.current.uniforms.uDepth.value = renderTarget.texture;
+
+    oceanMaterialRef.current.uniforms.uTime.value = elapsedTime;
+    oceanMaterialRef.current.uniforms.uDepth.value = renderTarget.texture;
+
+    const pixelRatio = gl.getPixelRatio();
+
+    waterMaterialRef.current.uniforms.uResolution.value = [
       window.innerWidth * pixelRatio,
       window.innerHeight * pixelRatio,
     ];
-    oceanRef.current.uniforms.uCameraNear.value = camera.near;
-    oceanRef.current.uniforms.uCameraFar.value = camera.far;
+    waterMaterialRef.current.uniforms.uCameraNear.value = camera.near;
+    waterMaterialRef.current.uniforms.uCameraFar.value = camera.far;
+
+    // lake uniforms
+
+    lakeMaterialRef.current.uniforms.uResolution.value = [
+      window.innerWidth * pixelRatio,
+      window.innerHeight * pixelRatio,
+    ];
+    lakeMaterialRef.current.uniforms.uCameraNear.value = camera.near;
+    lakeMaterialRef.current.uniforms.uCameraFar.value = camera.far;
+
+    // ocean uniforms
+
+    oceanMaterialRef.current.uniforms.uResolution.value = [
+      window.innerWidth * pixelRatio,
+      window.innerHeight * pixelRatio,
+    ];
+    oceanMaterialRef.current.uniforms.uCameraNear.value = camera.near;
+    oceanMaterialRef.current.uniforms.uCameraFar.value = camera.far;
   });
 
   return (
     <group {...props}>
-      <group position={[0, -4, 0]}>
+      <group position={[0, -4, 0]} visible={false}>
         <mesh position={[0, -5, 0]}>
-          <boxGeometry args={[20, 1, 20]} />
+          <boxGeometry args={[40, 1, 40]} />
           <meshStandardMaterial color={"#ea4d10"} />
         </mesh>
-        <mesh position={[0, 0, 9.5]}>
-          <boxGeometry args={[20, 10, 1]} />
+        <mesh position={[0, 0, 20]}>
+          <boxGeometry args={[40, 10, 1]} />
           <meshStandardMaterial color={"#ea4d10"} />
         </mesh>
-        <mesh position={[0, 0, -9.5]}>
-          <boxGeometry args={[20, 10, 1]} />
+        <mesh position={[0, 0, -20]}>
+          <boxGeometry args={[40, 10, 1]} />
           <meshStandardMaterial color={"#ea4d10"} />
         </mesh>
-        <mesh rotation={[0, Math.PI / 2, 0]} position={[10, 0, 0]}>
-          <boxGeometry args={[20, 10, 1]} />
+        <mesh rotation={[0, Math.PI / 2, 0]} position={[20, 0, 0]}>
+          <boxGeometry args={[40, 10, 1]} />
           <meshStandardMaterial color={"#ea4d10"} />
         </mesh>
-        <mesh rotation={[0, Math.PI / 2, 0]} position={[-10, 0, 0]}>
-          <boxGeometry args={[20, 10, 1]} />
+        <mesh rotation={[0, Math.PI / 2, 0]} position={[-20, 0, 0]}>
+          <boxGeometry args={[40, 10, 1]} />
           <meshStandardMaterial color={"#ea4d10"} />
         </mesh>
       </group>
       <mesh
+        ref={oceanRef}
         name="ocean_geo"
         castShadow
         receiveShadow
@@ -110,23 +146,24 @@ const Water: FC<WaterProps> = ({ nodes, ...props }) => {
           nodes.ocean_geo.position.z,
         ]}
         userData={{ name: "ocean_geo" }}
-        // position={[0, 0.1, 0]}
+        scale={1}
       >
         {/* <meshStandardMaterial color={"#00c3ff"} /> */}
         <waterMaterial
-          ref={oceanRef}
+          ref={oceanMaterialRef}
           uColor={new THREE.Color("#00c3ff")}
           transparent
           uOpacity={1}
           // uNoiseType={noiseType}
           uSpeed={0.5}
-          uRepeat={80}
+          uRepeat={300}
           uFoam={0.4}
-          uFoamTop={10}
-          uMaxDepth={5}
+          uFoamTop={1}
+          uMaxDepth={0.5}
         />
       </mesh>
       <mesh
+        ref={waterRef}
         name="water_geo"
         castShadow
         receiveShadow
@@ -135,16 +172,38 @@ const Water: FC<WaterProps> = ({ nodes, ...props }) => {
         userData={{ name: "water_geo" }}
       >
         <waterMaterial
-          ref={waterRef}
+          ref={waterMaterialRef}
+          uColor={new THREE.Color("#00c3ff")}
+          transparent
+          uOpacity={1}
+          // uNoiseType={noiseType}
+          uSpeed={1}
+          uRepeat={500}
+          uFoam={0.3}
+          uFoamTop={1}
+          uMaxDepth={0.2}
+        />
+      </mesh>
+      <mesh
+        ref={lakeRef}
+        name="lake_geo"
+        castShadow
+        receiveShadow
+        geometry={nodes.lake_geo.geometry}
+        position={nodes.lake_geo.position}
+        userData={{ name: "lake_geo" }}
+      >
+        <waterMaterial
+          ref={lakeMaterialRef}
           uColor={new THREE.Color("#00c3ff")}
           transparent
           uOpacity={1}
           // uNoiseType={noiseType}
           uSpeed={0.5}
-          uRepeat={80}
+          uRepeat={500}
           uFoam={0.4}
-          uFoamTop={10}
-          uMaxDepth={5}
+          uFoamTop={1}
+          uMaxDepth={1}
         />
       </mesh>
     </group>
