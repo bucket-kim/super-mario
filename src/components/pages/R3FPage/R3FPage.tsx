@@ -29,8 +29,6 @@ const R3FPage = () => {
           maxDistance={24}
           minPolarAngle={degToRad(-10)}
           maxPolarAngle={degToRad(80)}
-          maxAzimuthAngle={degToRad(40)}
-          minAzimuthAngle={degToRad(-5)}
         />
         <Lights />
         <MarioModel position={[0, 0, 0]} />

@@ -157,7 +157,7 @@ const Water: FC<WaterProps> = ({ nodes, ...props }) => {
           // uNoiseType={noiseType}
           uSpeed={0.5}
           uRepeat={300}
-          uFoam={0.4}
+          uFoam={0.6}
           uFoamTop={1}
           uMaxDepth={0.5}
         />
