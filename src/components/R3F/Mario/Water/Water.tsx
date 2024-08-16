@@ -137,19 +137,19 @@ const Water: FC<WaterProps> = ({ nodes, ...props }) => {
         receiveShadow
         geometry={nodes.ocean_geo.geometry}
         position={[
-          nodes.ocean_geo.position.x,
+          nodes.ocean_geo.position.x - 1.75,
           nodes.ocean_geo.position.y + 0.05,
-          nodes.ocean_geo.position.z,
+          nodes.ocean_geo.position.z + 1.75,
         ]}
         userData={{ name: "ocean_geo" }}
         scale={1}
       >
         {/* <meshStandardMaterial color={"#00c3ff"} /> */}
-        <waterMaterial
+        <oceanMaterial
           ref={oceanMaterialRef}
           uColor={new THREE.Color("#00c3ff")}
           transparent
-          uOpacity={0.9}
+          uOpacity={1}
           // uNoiseType={noiseType}
           uSpeed={0.5}
           uRepeat={300}

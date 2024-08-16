@@ -6,8 +6,6 @@ const Lights = ({ ...props }) => {
       <Environment
         files={"./images/toonSky2.hdr"}
         background
-        near={10}
-        far={1000}
         resolution={516}
       />
       <ambientLight intensity={1} />

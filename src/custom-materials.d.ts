@@ -10,6 +10,12 @@ declare global {
         transparent?: boolean;
         [key: string]: any; // Allow other props as well
       };
+      oceanMaterial: {
+        uColor?: THREE.Color | string;
+        uOpacity?: number;
+        transparent?: boolean;
+        [key: string]: any; // Allow other props as well
+      };
     }
   }
 }

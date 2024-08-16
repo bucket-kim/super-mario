@@ -127,10 +127,6 @@ const MarioModel = (props: any) => {
         itemMaterial={itemMaterial}
       />
       <Water nodes={nodes} position={[0, 0.0, 0.0]} />
-      {/* <mesh scale={4}>
-        <boxGeometry />
-        <meshStandardMaterial />
-      </mesh> */}
     </group>
   );
 };
