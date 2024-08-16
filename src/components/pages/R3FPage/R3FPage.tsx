@@ -15,7 +15,6 @@ const R3FPage = () => {
         gl={{
           depth: true,
           alpha: true,
-          stencil: true,
           antialias: true,
           toneMappingExposure: 1,
           outputColorSpace: SRGBColorSpace,
@@ -24,6 +23,7 @@ const R3FPage = () => {
         }}
         camera={{ position: [0, 4, 12], fov: 35 }}
       >
+        <fog attach="fog" args={["#c9e5f6", 10, 80]} />
         <CameraControls
           minDistance={5}
           maxDistance={24}

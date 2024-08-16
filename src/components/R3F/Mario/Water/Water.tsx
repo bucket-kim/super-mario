@@ -113,25 +113,21 @@ const Water: FC<WaterProps> = ({ nodes, ...props }) => {
   return (
     <group {...props}>
       <group position={[0, -4, 0]} visible={false}>
-        <mesh position={[0, -5, 0]}>
-          <boxGeometry args={[40, 1, 40]} />
-          <meshStandardMaterial color={"#ea4d10"} />
-        </mesh>
-        <mesh position={[0, 0, 20]}>
+        <mesh position={[0, 0, 10]}>
           <boxGeometry args={[40, 10, 1]} />
-          <meshStandardMaterial color={"#ea4d10"} />
+          <meshStandardMaterial color={"#ffffff"} />
         </mesh>
-        <mesh position={[0, 0, -20]}>
+        <mesh position={[0, 0, -10]}>
           <boxGeometry args={[40, 10, 1]} />
-          <meshStandardMaterial color={"#ea4d10"} />
+          <meshStandardMaterial color={"#ffffff"} />
         </mesh>
-        <mesh rotation={[0, Math.PI / 2, 0]} position={[20, 0, 0]}>
+        <mesh rotation={[0, Math.PI / 2, 0]} position={[10, 0, 0]}>
           <boxGeometry args={[40, 10, 1]} />
-          <meshStandardMaterial color={"#ea4d10"} />
+          <meshStandardMaterial color={"#ffffff"} />
         </mesh>
-        <mesh rotation={[0, Math.PI / 2, 0]} position={[-20, 0, 0]}>
+        <mesh rotation={[0, Math.PI / 2, 0]} position={[-10, 0, 0]}>
           <boxGeometry args={[40, 10, 1]} />
-          <meshStandardMaterial color={"#ea4d10"} />
+          <meshStandardMaterial color={"#ffffff"} />
         </mesh>
       </group>
       <mesh
@@ -153,7 +149,7 @@ const Water: FC<WaterProps> = ({ nodes, ...props }) => {
           ref={oceanMaterialRef}
           uColor={new THREE.Color("#00c3ff")}
           transparent
-          uOpacity={1}
+          uOpacity={0.9}
           // uNoiseType={noiseType}
           uSpeed={0.5}
           uRepeat={300}
@@ -200,9 +196,9 @@ const Water: FC<WaterProps> = ({ nodes, ...props }) => {
           uOpacity={1}
           // uNoiseType={noiseType}
           uSpeed={0.5}
-          uRepeat={500}
-          uFoam={0.4}
-          uFoamTop={1}
+          uRepeat={2000}
+          uFoam={0.7}
+          uFoamTop={0.3}
           uMaxDepth={1}
         />
       </mesh>

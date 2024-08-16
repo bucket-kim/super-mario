@@ -1,4 +1,5 @@
-import { FC, useMemo } from "react";
+import { useFrame } from "@react-three/fiber";
+import { FC, forwardRef, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { GLTF } from "three-stdlib";
 
@@ -16,101 +17,82 @@ type GLTFResult = GLTF & {
   };
 };
 
-interface CouldProps {
+interface CouldsProps {
   nodes: GLTFResult["nodes"];
   [key: string]: any;
 }
+interface CouldProps {
+  cloudName: keyof GLTFResult["nodes"];
+  nodes: GLTFResult["nodes"];
+  cloudMaterial: THREE.MeshStandardMaterial;
+  ref: any;
+}
 
-const Clouds: FC<CouldProps> = ({ nodes, ...props }) => {
+export type CloudRef = THREE.Mesh;
+
+const Cloud = forwardRef<CloudRef, CouldProps>(
+  ({ cloudName, nodes, cloudMaterial }, ref) => {
+    const cloudMesh = nodes[cloudName] as THREE.Mesh;
+
+    return (
+      <mesh
+        ref={ref}
+        name={cloudName}
+        castShadow
+        receiveShadow
+        material={cloudMaterial}
+        geometry={cloudMesh.geometry}
+        position={cloudMesh.position}
+        userData={{ name: { cloudName } }}
+      />
+    );
+  },
+);
+
+const Clouds: FC<CouldsProps> = ({ nodes, ...props }) => {
   const cloudMaterial = useMemo(() => {
     return new THREE.MeshStandardMaterial({
       color: "#ffffff",
     });
   }, []);
 
+  const cloudsNames = Object.keys(nodes) as (keyof GLTFResult["nodes"])[];
+
+  const cloudRef = useRef<THREE.Mesh[]>([]);
+
+  const getRandNumb = (min: number, max: number) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.random() * (max - min + 1) + min;
+  };
+
+  const randNum = getRandNumb(1, 3.5);
+
+  useFrame(({ clock }) => {
+    const elapsedTime = clock.getElapsedTime();
+
+    if (!cloudRef.current) return;
+    cloudRef.current.map((cloud, index) => {
+      cloud.position.x +=
+        Math.sin(elapsedTime * 1.25 + index) * randNum * 0.0005;
+    });
+  });
+
   return (
-    <group {...props}>
-      <mesh
-        name="cloud001"
-        castShadow
-        receiveShadow
-        material={cloudMaterial}
-        geometry={nodes.cloud001.geometry}
-        position={nodes.cloud001.position}
-        userData={{ name: "cloud001" }}
-      />
-      <mesh
-        name="cloud002"
-        castShadow
-        receiveShadow
-        material={cloudMaterial}
-        geometry={nodes.cloud002.geometry}
-        position={nodes.cloud002.position}
-        userData={{ name: "cloud002" }}
-      />
-      <mesh
-        name="cloud003"
-        castShadow
-        receiveShadow
-        material={cloudMaterial}
-        geometry={nodes.cloud003.geometry}
-        position={nodes.cloud003.position}
-        userData={{ name: "cloud003" }}
-      />
-      <mesh
-        name="cloud004"
-        castShadow
-        receiveShadow
-        material={cloudMaterial}
-        geometry={nodes.cloud004.geometry}
-        position={nodes.cloud004.position}
-        userData={{ name: "cloud004" }}
-      />
-      <mesh
-        name="cloud005"
-        castShadow
-        receiveShadow
-        material={cloudMaterial}
-        geometry={nodes.cloud005.geometry}
-        position={nodes.cloud005.position}
-        userData={{ name: "cloud005" }}
-      />
-      <mesh
-        name="cloud006"
-        castShadow
-        receiveShadow
-        material={cloudMaterial}
-        geometry={nodes.cloud006.geometry}
-        position={nodes.cloud006.position}
-        userData={{ name: "cloud006" }}
-      />
-      <mesh
-        name="cloud007"
-        castShadow
-        receiveShadow
-        material={cloudMaterial}
-        geometry={nodes.cloud007.geometry}
-        position={nodes.cloud007.position}
-        userData={{ name: "cloud007" }}
-      />
-      <mesh
-        name="cloud008"
-        castShadow
-        receiveShadow
-        material={cloudMaterial}
-        geometry={nodes.cloud008.geometry}
-        position={nodes.cloud008.position}
-        userData={{ name: "cloud008" }}
-      />
-      <mesh
-        name="cloud009"
-        castShadow
-        receiveShadow
-        material={cloudMaterial}
-        geometry={nodes.cloud009.geometry}
-        position={nodes.cloud009.position}
-        userData={{ name: "cloud009" }}
-      />
+    <group {...props} dispose={null}>
+      {cloudsNames.map((cloudName: any, index) => {
+        if (cloudName.includes("cloud")) {
+          return (
+            <Cloud
+              ref={(el: THREE.Mesh) => (cloudRef.current[index] = el)}
+              key={index}
+              cloudName={cloudName}
+              nodes={nodes}
+              cloudMaterial={cloudMaterial}
+            />
+          );
+        }
+      })}
     </group>
   );
 };

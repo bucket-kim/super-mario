@@ -55,8 +55,9 @@ const Button: FC<ButtonProps> = ({ buttonName, nodes, buttonMaterial }) => {
   return (
     <mesh
       name={buttonName}
-      onPointerEnter={() => setButtonIndex(buttonName)}
-      onPointerOut={() => setButtonIndex("")}
+      // onPointerEnter={() => setButtonIndex(buttonName)}
+      onClick={() => setButtonIndex(buttonName)}
+      // onPointerOut={() => setButtonIndex("")}
       castShadow
       receiveShadow
       material={buttonMaterial}
