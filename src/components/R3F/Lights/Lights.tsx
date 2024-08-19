@@ -3,11 +3,11 @@ import { Environment, Lightformer } from "@react-three/drei";
 const Lights = ({ ...props }) => {
   return (
     <group {...props}>
-      <Environment
+      {/* <Environment
         files={"./images/toonSky2.hdr"}
         background
         resolution={516}
-      />
+      /> */}
       <ambientLight intensity={1} />
       <directionalLight
         position={[-10, 20, 5]}
