@@ -2,6 +2,7 @@
 // import "../button.css";
 import gsap from "gsap";
 import { FC, useEffect, useRef } from "react";
+import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../State/useGlobalState";
 import ButtonInfosStyleContainer from "./ButtonInfosStyleContainer";
 
@@ -18,11 +19,12 @@ interface ButtonDetailsProps {
 }
 
 const ButtonInfos: FC<ButtonDetailsProps> = ({ data }) => {
-  const { buttonIndex } = useGlobalState((state) => {
+  const { buttonIndex, setButtonIndex } = useGlobalState((state) => {
     return {
       buttonIndex: state.buttonIndex,
+      setButtonIndex: state.setButtonIndex,
     };
-  });
+  }, shallow);
 
   const htmlRef = useRef<HTMLDivElement>(null);
 
@@ -49,6 +51,13 @@ const ButtonInfos: FC<ButtonDetailsProps> = ({ data }) => {
   return (
     <ButtonInfosStyleContainer ref={htmlRef} key={data.key}>
       <div className="info-container">
+        <button
+          onClick={() => {
+            setButtonIndex("");
+          }}
+        >
+          X
+        </button>
         <div className="img-content">
           <img src={data.image} alt={data.name} />
         </div>

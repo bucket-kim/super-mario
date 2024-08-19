@@ -19,7 +19,7 @@ const ButtonInfosStyleContainer = styled.div`
     "Open Sans",
     "Helvetica Neue",
     sans-serif;
-  pointer-events: none;
+  /* pointer-events: none; */
 
   .info-container {
     background: rgba(0, 0, 0, 0.7);

@@ -95,7 +95,7 @@ const MarioModel = (props: any) => {
     landColorMap.colorSpace = THREE.SRGBColorSpace;
 
     return material;
-  }, []);
+  }, [landAoMap, landColorMap, landNormalMap, landRoughnessMap]);
 
   const itemMaterial = useMemo(() => {
     const material = new THREE.MeshStandardMaterial({
@@ -114,19 +114,21 @@ const MarioModel = (props: any) => {
     itemsColorMap.colorSpace = THREE.SRGBColorSpace;
 
     return material;
-  }, []);
+  }, [itemsAoMap, itemsColorMap, itemsNormalMap, itemsRoughnessMap]);
 
   return (
     <group {...props} dispose={null}>
       <Buttons nodes={nodes} />
-      <Clouds nodes={nodes} />
-      <ColorButtons nodes={nodes} buttonMaterial={itemMaterial} />
-      <Land
-        nodes={nodes}
-        landMaterial={landMaterial}
-        itemMaterial={itemMaterial}
-      />
-      <Water nodes={nodes} position={[0, 0.0, 0.0]} />
+      <group>
+        <Clouds nodes={nodes} />
+        <ColorButtons nodes={nodes} buttonMaterial={itemMaterial} />
+        <Land
+          nodes={nodes}
+          landMaterial={landMaterial}
+          itemMaterial={itemMaterial}
+        />
+        <Water nodes={nodes} position={[0, 0.0, 0.0]} />
+      </group>
     </group>
   );
 };

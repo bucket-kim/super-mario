@@ -2,6 +2,7 @@ import { useTexture } from "@react-three/drei";
 import { FC, useMemo } from "react";
 import * as THREE from "three";
 import { GLTF } from "three-stdlib";
+import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../../State/useGlobalState";
 
 type GLTFResult = GLTF & {
@@ -51,7 +52,7 @@ const Button: FC<ButtonProps> = ({ buttonName, nodes, buttonMaterial }) => {
     return {
       setButtonIndex: state.setButtonIndex,
     };
-  });
+  }, shallow);
   return (
     <mesh
       name={buttonName}
