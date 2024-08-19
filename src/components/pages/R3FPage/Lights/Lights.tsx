@@ -44,7 +44,7 @@ const Lights = ({ ...props }) => {
             color={"#ffffff"}
           />
           <Lightformer
-            intensity={4}
+            intensity={8}
             rotation-y={Math.PI / 2}
             position={[-5, -5, -1]}
             scale={[50, 2, 1]}

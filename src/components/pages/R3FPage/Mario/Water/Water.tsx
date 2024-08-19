@@ -147,7 +147,7 @@ const Water: FC<WaterProps> = ({ nodes, ...props }) => {
         {/* <meshStandardMaterial color={"#00c3ff"} /> */}
         <oceanMaterial
           ref={oceanMaterialRef}
-          uColor={new THREE.Color("#00c3ff")}
+          uColor={new THREE.Color("#58c5fe")}
           transparent
           uOpacity={1}
           // uNoiseType={noiseType}
@@ -169,7 +169,7 @@ const Water: FC<WaterProps> = ({ nodes, ...props }) => {
       >
         <waterMaterial
           ref={waterMaterialRef}
-          uColor={new THREE.Color("#00c3ff")}
+          uColor={new THREE.Color("#58c5fe")}
           transparent
           uOpacity={1}
           // uNoiseType={noiseType}
@@ -191,7 +191,7 @@ const Water: FC<WaterProps> = ({ nodes, ...props }) => {
       >
         <waterMaterial
           ref={lakeMaterialRef}
-          uColor={new THREE.Color("#00c3ff")}
+          uColor={new THREE.Color("#58c5fe")}
           transparent
           uOpacity={1}
           // uNoiseType={noiseType}

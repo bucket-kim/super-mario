@@ -5,7 +5,7 @@ import App from "./App.tsx";
 import {
   OceanMaterial,
   WaterMaterial,
-} from "./components/R3F/Mario/Water/WaterMaterial/WaterMaterial.tsx";
+} from "./components/pages/R3FPage/Mario/Water/WaterMaterial/WaterMaterial.tsx";
 
 extend({ WaterMaterial });
 extend({ OceanMaterial });

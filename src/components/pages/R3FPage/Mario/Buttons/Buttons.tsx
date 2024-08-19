@@ -2,7 +2,7 @@ import { useTexture } from "@react-three/drei";
 import { FC, useMemo } from "react";
 import * as THREE from "three";
 import { GLTF } from "three-stdlib";
-import { useGlobalState } from "../../../State/useGlobalState";
+import { useGlobalState } from "../../../../State/useGlobalState";
 
 type GLTFResult = GLTF & {
   nodes: {
