@@ -8,9 +8,14 @@ import R3FPageStyleContainer from "./R3FPageStyleContainer";
 const R3FPage = () => {
   return (
     <R3FPageStyleContainer>
-      <Canvas shadows camera={{ position: [0, 4, 12], fov: 35 }}>
+      <Canvas
+        shadows
+        gl={{ antialias: false }}
+        camera={{ position: [0, 4, 12], fov: 35 }}
+        dpr={[1, 2]}
+      >
         <fog attach="fog" args={["#c9e5f6", 10, 80]} />
-        <color attach={"background"} args={["#58c5fe"]} />
+        <color attach="background" args={["#58c5fe"]} />
         <Camera />
         <Lights />
         <MarioModel position={[0, 0, 0]} />

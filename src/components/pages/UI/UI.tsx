@@ -37,7 +37,7 @@ const UI = () => {
   const success = async (position: any) => {
     const lat = position.coords.latitude;
     const lon = position.coords.longitude;
-    console.log(`Latitude: ${lat}, Longitude: ${lon}`);
+
     const weatherFetch = await fetch(
       `${WEATHER_API_URL}weather?lat=${lat}&lon=${lon}&appid=${weatherAPIKey}`,
     );

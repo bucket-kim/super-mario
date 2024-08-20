@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-three/drei": "^9.107.1",
     "@react-three/fiber": "^8.16.8",
+    "@react-three/postprocessing": "^2.16.2",
     "@vitejs/plugin-basic-ssl": "^1.1.0",
     "gsap": "^3.12.5",
     "immer": "^10.1.1",

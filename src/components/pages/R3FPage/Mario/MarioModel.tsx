@@ -5,6 +5,7 @@ import { GLTF } from "three-stdlib";
 import Buttons from "./Buttons/Buttons";
 import Clouds from "./Clouds/Clouds";
 import ColorButtons from "./ColorButtons/ColorButtons";
+import Eyeball from "./Eyeball/Eyeball";
 import Land from "./Land/Land";
 import Water from "./Water/Water";
 
@@ -129,6 +130,8 @@ const MarioModel = (props: any) => {
         />
         <Water nodes={nodes} position={[0, 0.0, 0.0]} />
       </group>
+
+      <Eyeball nodes={nodes} />
     </group>
   );
 };
