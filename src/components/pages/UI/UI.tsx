@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { WEATHER_API_URL, weatherAPIKey } from "../../../api";
 import datas from "../../../datas";
 import ButtonInfos from "./ButtonInfos/ButtonInfos";
@@ -33,6 +33,40 @@ const UI = () => {
       })
       .catch((error) => console.log(error));
   };
+
+  const success = async (position: any) => {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+    console.log(`Latitude: ${lat}, Longitude: ${lon}`);
+    const weatherFetch = await fetch(
+      `${WEATHER_API_URL}weather?lat=${lat}&lon=${lon}&appid=${weatherAPIKey}`,
+    );
+    const forcastFetch = await fetch(
+      `${WEATHER_API_URL}forecast?lat=${lat}&lon=${lon}&appid=${weatherAPIKey}`,
+    );
+
+    Promise.all([weatherFetch, forcastFetch])
+      .then(async (res) => {
+        const weatherResponse = await res[0].json();
+        const forcastResponse = await res[1].json();
+
+        setCurrentWeather({ ...weatherResponse });
+        setForecastWeather({ ...forcastResponse });
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const error = () => {
+    console.log("Unable to retrieve your location");
+  };
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success, error);
+    } else {
+      console.log("Geolocation not supported");
+    }
+  }, []);
 
   return (
     <UIStyleContainer>

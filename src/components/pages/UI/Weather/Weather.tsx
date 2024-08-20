@@ -1,14 +1,10 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 
 interface WeatherProps {
   currentWeather: any;
 }
 
 const Weather: FC<WeatherProps> = ({ currentWeather }) => {
-  useEffect(() => {
-    console.log(currentWeather);
-  }, [currentWeather]);
-
   return currentWeather ? (
     <div>
       <h1>
