@@ -5,7 +5,7 @@ import ButtonInfos from "./ButtonInfos/ButtonInfos";
 import Search from "./Search/Search";
 import UIStyleContainer from "./UIStyleContainer";
 import Weather from "./Weather/Weather";
-import WeatherForcast from "./WeatherForecast/WeatherForcast";
+import WeatherForecast from "./WeatherForecast/WeatherForecast";
 const UI = () => {
   const [currentWeather, setCurrentWeather] = useState(null);
   const [forecastWeather, setForecastWeather] = useState(null);
@@ -75,7 +75,7 @@ const UI = () => {
       {/* weather UI */}
       <Weather currentWeather={currentWeather} />
       {/* forcast UI */}
-      <WeatherForcast forecastWeather={forecastWeather} />
+      <WeatherForecast forecastWeather={forecastWeather} />
       {/* Stage Info UI */}
       {datas.map((data, index) => (
         <ButtonInfos data={data} key={index} />
