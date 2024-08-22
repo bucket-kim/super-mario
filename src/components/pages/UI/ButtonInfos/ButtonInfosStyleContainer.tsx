@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 const ButtonInfosStyleContainer = styled.div`
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
   opacity: 0;
   visibility: hidden;
   color: white;
@@ -20,6 +20,7 @@ const ButtonInfosStyleContainer = styled.div`
     "Helvetica Neue",
     sans-serif;
   /* pointer-events: none; */
+  transform: translate(-50%, -50%);
 
   .info-container {
     background: rgba(0, 0, 0, 0.7);
