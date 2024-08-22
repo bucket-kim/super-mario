@@ -1,4 +1,7 @@
-import { FC } from "react";
+import gsap from "gsap";
+import { FC, useCallback, useEffect, useRef } from "react";
+import { shallow } from "zustand/shallow";
+import { useGlobalState } from "../../../State/useGlobalState";
 import WeatherForecastStyleContainer from "./WeatherForecastStyleContainer";
 
 interface ForecastProps {
@@ -22,8 +25,42 @@ const WeatherForecast: FC<ForecastProps> = ({ forecastWeather }) => {
     DAYS.slice(0, dayInWeek),
   );
 
+  const weatherForecastDivRef = useRef<HTMLDivElement>(null);
+
+  const { clickForecastArrow } = useGlobalState((state) => {
+    return {
+      clickForecastArrow: state.clickForecastArrow,
+    };
+  }, shallow);
+
+  const handleWeatherForecastAnim = useCallback(() => {
+    if (!weatherForecastDivRef.current) return;
+    if (clickForecastArrow) {
+      gsap.to(weatherForecastDivRef.current, {
+        opacity: 1,
+        visibility: "visible",
+        overwrite: true,
+        duration: 0.25,
+        y: 0,
+      });
+    } else {
+      gsap.to(weatherForecastDivRef.current, {
+        y: -30,
+        duration: 0.25,
+        opacity: 0,
+        overwrite: true,
+        onComplete: () => {
+          if (!weatherForecastDivRef.current) return;
+          weatherForecastDivRef.current.style.visibility = "hidden";
+        },
+      });
+    }
+  }, [clickForecastArrow]);
+
+  useEffect(handleWeatherForecastAnim, [handleWeatherForecastAnim]);
+
   return !forecastWeather ? null : (
-    <WeatherForecastStyleContainer>
+    <WeatherForecastStyleContainer ref={weatherForecastDivRef}>
       <div className="forecast-container">
         {forecastWeather.list.slice(0, 7).map((data: any, index: number) => (
           <div key={index} className="weather-container">

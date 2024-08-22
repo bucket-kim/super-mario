@@ -15,7 +15,7 @@ const R3FPage = () => {
         dpr={[1, 2]}
       >
         <fog attach="fog" args={["#c9e5f6", 10, 80]} />
-        <color attach="background" args={["#58c5fe"]} />
+        <color attach="background" args={["#88d2fa"]} />
         <Camera />
         <Lights />
         <MarioModel position={[0, 0, 0]} />

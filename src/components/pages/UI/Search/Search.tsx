@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
 import { AsyncPaginate } from "react-select-async-paginate";
 import { GEO_API_URL, geoApiOptions } from "../../../../api";
+import SearchStyleContainer from "./SearchStyleContainer";
 
 interface SearchProps {
   onSearchChange: (searchData: string) => void;
@@ -38,6 +39,23 @@ const Search: FC<SearchProps> = ({ onSearchChange }) => {
     }
   };
 
+  const customStyles = {
+    control: (provided: any, state: any) => ({
+      ...provided,
+      borderRadius: "5px",
+      border: "none",
+      boxShadow: state.isFocused ? "0 0 0 2px #007cf8" : null,
+      outline: "none",
+      width: "14rem",
+    }),
+    option: (provided: any, state: any) => ({
+      ...provided,
+      backgroundColor: state.isFocused ? "#3699FF" : null,
+      color: state.isFocused ? "black" : null,
+      outline: "none",
+    }),
+  };
+
   const handleOnChange = (searchData: any) => {
     setSearch(searchData);
     onSearchChange(searchData);
@@ -45,8 +63,9 @@ const Search: FC<SearchProps> = ({ onSearchChange }) => {
   };
 
   return (
-    <div>
+    <SearchStyleContainer>
       <AsyncPaginate
+        styles={customStyles}
         key={JSON.stringify(search)}
         value={search || ""}
         placeholder="Search for City"
@@ -57,7 +76,7 @@ const Search: FC<SearchProps> = ({ onSearchChange }) => {
         // @ts-ignore
         loadOptions={loadOptions}
       />
-    </div>
+    </SearchStyleContainer>
   );
 };
 
