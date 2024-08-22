@@ -59,12 +59,14 @@ const WeatherForecast: FC<ForecastProps> = ({ forecastWeather }) => {
 
   useEffect(handleWeatherForecastAnim, [handleWeatherForecastAnim]);
 
-  useEffect(() => {
-    if (!forecastWeather) return;
-    forecastWeather.list
-      .slice(0, 7)
-      .map((data: any) => console.log(data.main.temp_min - 273.15));
-  }, [forecastWeather]);
+  // useEffect(() => {
+  //   if (!forecastWeather) return;
+  //   forecastWeather.list
+  //     .slice(0, 7)
+  //     .map((data: any) =>
+  //       console.log(`${data.main.temp_max}, ${data.main.temp_min}`),
+  //     );
+  // }, [forecastWeather]);
 
   return !forecastWeather ? null : (
     <WeatherForecastStyleContainer ref={weatherForecastDivRef}>

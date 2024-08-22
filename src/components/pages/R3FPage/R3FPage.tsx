@@ -16,9 +16,10 @@ const R3FPage = () => {
       >
         <fog attach="fog" args={["#c9e5f6", 10, 80]} />
         <color attach="background" args={["#88d2fa"]} />
+
         <Camera />
         <Lights />
-        <MarioModel position={[0, 0, 0]} />
+        <MarioModel position={[0, -1, 0]} />
       </Canvas>
     </R3FPageStyleContainer>
   );
