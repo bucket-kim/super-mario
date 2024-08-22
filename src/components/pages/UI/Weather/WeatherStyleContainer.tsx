@@ -39,7 +39,8 @@ const WeatherStyleContainer = styled.div`
         width: 14rem;
         height: 100%;
         display: flex;
-        /* align-items: center; */
+        flex-direction: column;
+        align-items: center;
         justify-content: flex-start;
         /* background: red; */
       }

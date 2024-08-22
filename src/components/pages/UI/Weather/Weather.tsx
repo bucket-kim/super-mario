@@ -45,8 +45,11 @@ const Weather: FC<WeatherProps> = ({ currentWeather }) => {
             </h2>
           </div>
           <div className="weather-temperature">
+            <h2></h2>
             <h2>
-              {Math.round((currentWeather.main.temp - 273.15) * 100) / 100}°C
+              {currentWeather.weather[0].main}
+              <br />
+              {Math.round((currentWeather.main.temp - 273.15) * 10) / 10}°C
             </h2>
           </div>
           <div className="weather-icon">
@@ -60,8 +63,7 @@ const Weather: FC<WeatherProps> = ({ currentWeather }) => {
             <h2>
               Feels liks
               <br />
-              {Math.round((currentWeather.main.feels_like - 273.15) * 100) /
-                100}
+              {Math.round((currentWeather.main.feels_like - 273.15) * 10) / 10}
               °C
             </h2>
           </div>

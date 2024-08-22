@@ -59,16 +59,31 @@ const WeatherForecast: FC<ForecastProps> = ({ forecastWeather }) => {
 
   useEffect(handleWeatherForecastAnim, [handleWeatherForecastAnim]);
 
+  useEffect(() => {
+    if (!forecastWeather) return;
+    forecastWeather.list
+      .slice(0, 7)
+      .map((data: any) => console.log(data.main.temp_min - 273.15));
+  }, [forecastWeather]);
+
   return !forecastWeather ? null : (
     <WeatherForecastStyleContainer ref={weatherForecastDivRef}>
       <div className="forecast-container">
         {forecastWeather.list.slice(0, 7).map((data: any, index: number) => (
           <div key={index} className="weather-container">
-            <div>
-              <h1>{forecastDay[index]}</h1>
+            <div className="weather-icon">
+              <img
+                src={`images/weatherui/${data.weather[0].icon}.png`}
+                alt=""
+              />
             </div>
-            <div>
-              <p>{data.weather[0].description}</p>
+            <div className="weather-description">
+              <div>
+                <h1>{forecastDay[index]}</h1>
+              </div>
+
+              <p>{Math.round((data.main.temp_max - 273.15) * 10) / 10} °C</p>
+              <p>{Math.round((data.main.temp_min - 273.15) * 10) / 10} °C</p>
             </div>
           </div>
         ))}

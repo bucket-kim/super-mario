@@ -23,6 +23,28 @@ const WeatherForecastStyleContainer = styled.div`
       margin: 0.5rem;
       height: 11rem;
       padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+
+      .weather-icon {
+        /* width: 12rem; */
+        height: 4rem;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+
+      .weather-description {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+      }
     }
   }
 `;
