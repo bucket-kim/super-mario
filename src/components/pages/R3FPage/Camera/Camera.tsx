@@ -26,20 +26,21 @@ const Camera = () => {
     const controls = e.target as CustomMapControls;
     const target = controls._camera.position;
     const maxX = 20;
-    const minX = -10;
+    const minX = -20;
     const maxY = 20;
     const minY = 1;
     const x = target.x;
     const y = target.y;
-    console.log(target);
 
     if (x < minX || x > maxX) {
       target.x = x < minX ? minX : maxX;
-      camera.position.x = cameraLastPosition.current.x;
+      // camera.position.x = cameraLastPosition.current.x;
+      camera.position.setX(cameraLastPosition.current.x);
     }
     if (y < minY || y > maxY) {
       target.y = y < minY ? minY : maxY;
-      camera.position.y = cameraLastPosition.current.y;
+      // camera.position.y = cameraLastPosition.current.y;
+      camera.position.setY(cameraLastPosition.current.y);
     }
     cameraLastPosition.current.x = camera.position.x;
     cameraLastPosition.current.y = camera.position.y;
@@ -61,20 +62,6 @@ const Camera = () => {
         minPolarAngle={degToRad(-10)}
         maxPolarAngle={degToRad(85)}
       />
-      {/* <MapControls
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        ref={cameraRef as MutableRefObject<MapControls | null>}
-        minDistance={5}
-        maxDistance={12.5}
-        onChange={(e) => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          limitPanningDistance(e);
-        }}
-        minPolarAngle={degToRad(-10)}
-        maxPolarAngle={degToRad(85)}
-      /> */}
     </>
   );
 };

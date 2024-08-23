@@ -7,4 +7,7 @@ export interface UIModuleTypes {
 
   clickForecastArrow: boolean;
   setClickForecastArrow: (clickForecastArrow: boolean) => void;
+
+  showSearch: boolean;
+  setShowSearch: (showSearch: boolean) => void;
 }

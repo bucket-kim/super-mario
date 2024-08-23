@@ -1,6 +1,7 @@
-import { UIModuleTypes } from './UIModule/UIModuleTypes';
+import { UIModuleTypes } from "./UIModule/UIModuleTypes";
+import { WeatherModuleTypes } from "./WeatherModule/WeatherModuleTypes";
 
-export interface GlobalStateTypes extends UIModuleTypes {}
+export interface GlobalStateTypes extends UIModuleTypes, WeatherModuleTypes {}
 
 export type SetState<T extends object> = (
   partial: Partial<T> | ((state: T) => void),

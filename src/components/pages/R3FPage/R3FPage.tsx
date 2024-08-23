@@ -1,4 +1,6 @@
 import { Canvas } from "@react-three/fiber";
+import { shallow } from "zustand/shallow";
+import { useGlobalState } from "../../State/useGlobalState";
 import Camera from "./Camera/Camera";
 import Lights from "./Lights/Lights";
 import MarioModel from "./Mario/MarioModel";
@@ -6,6 +8,12 @@ import R3FPageStyleContainer from "./R3FPageStyleContainer";
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const R3FPage = () => {
+  const { isSunset } = useGlobalState((state) => {
+    return {
+      isSunset: state.isSunset,
+    };
+  }, shallow);
+
   return (
     <R3FPageStyleContainer>
       <Canvas
@@ -15,7 +23,7 @@ const R3FPage = () => {
         dpr={[1, 2]}
       >
         <fog attach="fog" args={["#c9e5f6", 10, 80]} />
-        <color attach="background" args={["#88d2fa"]} />
+        <color attach="background" args={[isSunset ? "#08223f" : "#88d2fa"]} />
 
         <Camera />
         <Lights />

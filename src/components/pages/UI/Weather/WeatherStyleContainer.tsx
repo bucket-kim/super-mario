@@ -6,9 +6,9 @@ const WeatherStyleContainer = styled.div`
   left: 0;
   color: white;
   width: 100%;
-  -webkit-text-stroke-width: 1px;
+  /* -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
-  font-size: 1.2rem;
+  font-size: 1.2rem; */
 
   .weather-content {
     display: flex;
@@ -32,18 +32,36 @@ const WeatherStyleContainer = styled.div`
         justify-content: flex-start;
         /* background: red; */
         h2 {
-          font-weight: 900;
-        }
-      }
+          /* font-weight: 900; */
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          .city,
+          .condition {
+            font-size: 1rem;
+            font-weight: 400;
+          }
 
-      .weather-temperature {
-        width: 14rem;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        /* background: red; */
+          .city {
+            display: flex;
+            align-items: center;
+            button {
+              border: none;
+              background: transparent;
+              color: white;
+              margin-left: 0.4rem;
+              height: 1.5rem;
+              img {
+                height: 100%;
+                object-fit: contain;
+              }
+            }
+          }
+          .temperature {
+            font-size: 5rem;
+            font-weight: 400;
+          }
+        }
       }
 
       .weather-icon {
@@ -65,15 +83,6 @@ const WeatherStyleContainer = styled.div`
         }
       }
 
-      .weather-feel-like {
-        color: #fddc75;
-        width: 14rem;
-        height: 100%;
-        display: flex;
-        /* align-items: center; */
-        justify-content: flex-start;
-        /* background: red; */
-      }
       .weather-details {
         width: 14rem;
         height: 100%;
@@ -81,8 +90,29 @@ const WeatherStyleContainer = styled.div`
         flex-direction: column;
         align-items: flex-start;
         justify-content: space-between;
+        p {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+        }
         /* background: red; */
-        font-weight: 900;
+        /* font-weight: 900; */
+        .sunrise-timing {
+          margin-top: 1.5rem;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          span {
+            width: 5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            img {
+              width: 100%;
+              object-fit: contain;
+            }
+          }
+        }
       }
     }
     .weather-button {

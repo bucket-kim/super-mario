@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { shallow } from "zustand/shallow";
 import { WEATHER_API_URL, weatherAPIKey } from "../../../api";
 import datas from "../../../datas";
+import { useGlobalState } from "../../State/useGlobalState";
 import ButtonInfos from "./ButtonInfos/ButtonInfos";
 import Search from "./Search/Search";
 import UIStyleContainer from "./UIStyleContainer";
@@ -9,6 +11,12 @@ import WeatherForecast from "./WeatherForecast/WeatherForecast";
 const UI = () => {
   const [currentWeather, setCurrentWeather] = useState(null);
   const [forecastWeather, setForecastWeather] = useState(null);
+
+  const { setCountryDayTime } = useGlobalState((state) => {
+    return {
+      setCountryDayTime: state.setCountryDayTime,
+    };
+  }, shallow);
 
   const handleOnSearchChange = async (searchData: string) => {
     if (!searchData) return;
@@ -30,6 +38,7 @@ const UI = () => {
 
         setCurrentWeather({ city: label, ...weatherResponse });
         setForecastWeather({ city: label, ...forcastResponse });
+        setCountryDayTime(weatherResponse.dt + weatherResponse.timezone);
       })
       .catch((error) => console.log(error));
   };

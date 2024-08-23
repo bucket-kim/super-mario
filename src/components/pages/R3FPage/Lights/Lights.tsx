@@ -1,4 +1,13 @@
+import { shallow } from "zustand/shallow";
+import { useGlobalState } from "../../../State/useGlobalState";
+
 const Lights = ({ ...props }) => {
+  const { isSunset } = useGlobalState((state) => {
+    return {
+      isSunset: state.isSunset,
+    };
+  }, shallow);
+
   return (
     <group {...props}>
       {/* <Environment
@@ -6,35 +15,35 @@ const Lights = ({ ...props }) => {
         background
         resolution={516}
       /> */}
-      <ambientLight intensity={1} />
+      <ambientLight intensity={isSunset ? 0.5 : 1} />
       <directionalLight
         position={[-10, 20, 5]}
         castShadow
         shadow-mapSize={[1024, 1024]}
         shadow-bias={-0.0001}
-        intensity={1}
+        intensity={isSunset ? 0.5 : 1}
       />
       <group rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
         <rectAreaLight
-          intensity={1}
+          intensity={isSunset ? 0.5 : 1}
           rotation-y={-Math.PI / 2}
           position={[-5, -1, -1]}
           scale={[50, 2, 1]}
-          color={"#ffffff"}
+          color={isSunset ? "#0000ff" : "#ffffff"}
         />
         <rectAreaLight
-          intensity={3}
+          intensity={isSunset ? 1.5 : 3}
           rotation-y={-Math.PI / 2}
           position={[-10, -5, -1]}
           scale={[10, 2, 1]}
-          // color={"#2085f6"}
+          color={isSunset ? "#2085f6" : "#ffffff"}
         />
         <rectAreaLight
-          intensity={1.5}
+          intensity={isSunset ? 1 : 1.5}
           rotation-y={Math.PI / 2}
           position={[10, 1, 0]}
           scale={[50, 2, 1]}
-          // color={"#67aefc"}
+          color={isSunset ? "#67aefc" : "#ffffff"}
         />
       </group>
     </group>
