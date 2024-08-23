@@ -16,13 +16,14 @@ const WeatherStyleContainer = styled.div`
     align-items: center;
     justify-content: center;
     margin: 0rem 2rem;
+    margin-top: 2rem;
     .weather-container {
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.5rem;
-      height: 10rem;
+      /* padding: 0.5rem; */
+      height: 8rem;
       .weather-place {
         width: 14rem;
         height: 100%;
@@ -46,7 +47,7 @@ const WeatherStyleContainer = styled.div`
       }
 
       .weather-icon {
-        width: 14rem;
+        width: 10rem;
         height: 100%;
         display: flex;
         align-items: center;
@@ -79,7 +80,7 @@ const WeatherStyleContainer = styled.div`
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        justify-content: space-around;
+        justify-content: space-between;
         /* background: red; */
         font-weight: 900;
       }

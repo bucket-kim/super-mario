@@ -36,13 +36,21 @@ const WeatherForecast: FC<ForecastProps> = ({ forecastWeather }) => {
   const handleWeatherForecastAnim = useCallback(() => {
     if (!weatherForecastDivRef.current) return;
     if (clickForecastArrow) {
-      gsap.to(weatherForecastDivRef.current, {
-        opacity: 1,
-        visibility: "visible",
-        overwrite: true,
-        duration: 0.25,
-        y: 0,
-      });
+      gsap.fromTo(
+        weatherForecastDivRef.current,
+        {
+          y: -30,
+          opacity: 0,
+          visibility: "hidden",
+        },
+        {
+          opacity: 1,
+          visibility: "visible",
+          overwrite: true,
+          duration: 0.25,
+          y: 0,
+        },
+      );
     } else {
       gsap.to(weatherForecastDivRef.current, {
         y: -30,
