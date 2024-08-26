@@ -10,6 +10,8 @@ import {
 } from "three";
 
 import { GLTF } from "three-stdlib";
+import { shallow } from "zustand/shallow";
+import { useGlobalState } from "../../../../State/useGlobalState";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -31,6 +33,12 @@ const Water: FC<WaterProps> = ({ nodes, ...props }) => {
   const oceanMaterialRef = useRef<THREE.ShaderMaterial>(null);
   const lakeRef = useRef<THREE.Mesh>(null);
   const lakeMaterialRef = useRef<THREE.ShaderMaterial>(null);
+
+  const { isSunset } = useGlobalState((state) => {
+    return {
+      isSunset: state.isSunset,
+    };
+  }, shallow);
 
   const depthMaterial = new MeshDepthMaterial();
   depthMaterial.depthPacking = RGBADepthPacking;
@@ -147,7 +155,7 @@ const Water: FC<WaterProps> = ({ nodes, ...props }) => {
         {/* <meshStandardMaterial color={"#00c3ff"} /> */}
         <oceanMaterial
           ref={oceanMaterialRef}
-          uColor={new THREE.Color("#58c5fe")}
+          uColor={new THREE.Color(isSunset ? "#438eb6" : "#58c5fe")}
           transparent
           uOpacity={1}
           // uNoiseType={noiseType}
@@ -169,7 +177,7 @@ const Water: FC<WaterProps> = ({ nodes, ...props }) => {
       >
         <waterMaterial
           ref={waterMaterialRef}
-          uColor={new THREE.Color("#58c5fe")}
+          uColor={new THREE.Color(isSunset ? "#438eb6" : "#58c5fe")}
           transparent
           uOpacity={1}
           // uNoiseType={noiseType}
@@ -191,7 +199,7 @@ const Water: FC<WaterProps> = ({ nodes, ...props }) => {
       >
         <waterMaterial
           ref={lakeMaterialRef}
-          uColor={new THREE.Color("#58c5fe")}
+          uColor={new THREE.Color(isSunset ? "#438eb6" : "#58c5fe")}
           transparent
           uOpacity={1}
           // uNoiseType={noiseType}

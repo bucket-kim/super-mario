@@ -42,13 +42,13 @@ const Weather: FC<WeatherProps> = ({ currentWeather }) => {
 
   const handleIsSunsetCondition = useCallback(() => {
     if (!currentWeather) return;
-    const currentTime = Math.floor(Date.now() / 1000);
+    const currentTime = Math.floor(Date.now() / 1000) + currentWeather.timezone;
     // const currentTime = currentWeather.dt + currentWeather.timezone;
-    const sunsetTime = currentWeather.sys.sunset;
-    const sunriseTime = currentWeather.sys.sunrise;
-    if (currentTime >= sunsetTime) {
+    const sunsetTime = currentWeather.sys.sunset + currentWeather.timezone;
+    const sunriseTime = currentWeather.sys.sunrise + currentWeather.timezone;
+    if (currentTime >= sunsetTime || currentTime < sunriseTime) {
       setIsSunset(true);
-    } else if (currentTime < sunriseTime) {
+    } else {
       setIsSunset(false);
     }
   }, [currentWeather, setIsSunset]);
@@ -66,7 +66,7 @@ const Weather: FC<WeatherProps> = ({ currentWeather }) => {
     // Return formatted time as HH:MM:SS
     return (
       <p>
-        {hours}:{minutes} {hours >= 12 ? "PM" : "AM"}
+        {hours}:{minutes} {parseInt(hours) >= 12 ? "PM" : "AM"}
       </p>
     );
   };
@@ -78,10 +78,6 @@ const Weather: FC<WeatherProps> = ({ currentWeather }) => {
       setShowSearch(false);
     }
   }, [showSearch]);
-
-  useEffect(() => {
-    console.log(currentWeather);
-  }, [currentWeather]);
 
   return currentWeather ? (
     <WeatherStyleContainer>
@@ -114,15 +110,15 @@ const Weather: FC<WeatherProps> = ({ currentWeather }) => {
           <div className="weather-details">
             <p>
               <span>Wind</span>
-              <span>{currentWeather.wind.speed}km/h</span>
+              <span>{currentWeather.wind.speed} km/h</span>
             </p>
             <p>
               <span>Humidity</span>
-              <span>{currentWeather.main.humidity}%</span>
+              <span>{currentWeather.main.humidity} %</span>
             </p>
             <p>
               <span>Pressure</span>
-              <span>{currentWeather.main.pressure}mb</span>
+              <span>{currentWeather.main.pressure} mb</span>
             </p>
             <div className="sunrise-timing">
               <span>
