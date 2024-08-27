@@ -51,6 +51,7 @@ const WeatherStyleContainer = styled.div`
               color: white;
               margin-left: 0.4rem;
               height: 1.5rem;
+              cursor: pointer;
               img {
                 height: 100%;
                 object-fit: contain;

@@ -1,61 +1,42 @@
-import { CameraControls } from "@react-three/drei";
+import { OrbitControls as DreiOrbitControls } from "@react-three/drei"; // Import from drei for use in JSX
 import { useThree } from "@react-three/fiber";
-import { MutableRefObject, useRef } from "react";
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { OrbitControls as ThreeOrbitControls } from "three/examples/jsm/controls/OrbitControls"; // Import type from three.js
 import { degToRad } from "three/src/math/MathUtils.js";
 
-// Define a type that extends OrbitControls but is used as MapControls
-type CustomMapControls = OrbitControls & {
-  _camera: {
-    position: THREE.Vector3;
-  };
-};
-
 const Camera = () => {
-  const cameraRef = useRef<CustomMapControls | null>(null);
-
   const { camera } = useThree();
 
-  const cameraLastPosition = useRef({
-    x: camera.position.x,
-    y: camera.position.y,
-  });
+  const maxX = 20;
+  const minX = -20;
+  const maxY = 15;
+  const minY = -1;
 
   const limitPanningDistance = (e: THREE.Event) => {
-    const controls = e.target as CustomMapControls;
-    const target = controls._camera.position;
-    const maxX = 20;
-    const minX = -20;
-    const maxY = 20;
-    const minY = 1;
-    const x = target.x;
-    const y = target.y;
+    // if (!cameraRef.current) return;
 
-    if (x < minX || x > maxX) {
-      target.x = x < minX ? minX : maxX;
-      // camera.position.x = cameraLastPosition.current.x;
-      camera.position.setX(cameraLastPosition.current.x);
-    }
-    if (y < minY || y > maxY) {
-      target.y = y < minY ? minY : maxY;
-      // camera.position.y = cameraLastPosition.current.y;
-      camera.position.setY(cameraLastPosition.current.y);
-    }
-    cameraLastPosition.current.x = camera.position.x;
-    cameraLastPosition.current.y = camera.position.y;
+    const controls = e.target as ThreeOrbitControls;
+
+    if (!controls) return;
+
+    const target = controls.target;
+
+    // Clamp the target position directly
+    target.x = THREE.MathUtils.clamp(target.x, minX, maxX);
+    target.y = THREE.MathUtils.clamp(target.y, minY, maxY);
+
+    // Update camera position to stay within bounds
+    camera.position.x = THREE.MathUtils.clamp(camera.position.x, minX, maxX);
+    camera.position.y = THREE.MathUtils.clamp(camera.position.y, minY, maxY);
   };
 
   return (
     <>
-      <CameraControls
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        ref={cameraRef as MutableRefObject<CameraControls | null>}
+      <DreiOrbitControls
+        // ref={cameraRef}
         minDistance={5}
         maxDistance={15}
         onChange={(e) => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           limitPanningDistance(e);
         }}
