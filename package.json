@@ -17,6 +17,7 @@
     "@vitejs/plugin-basic-ssl": "^1.1.0",
     "gsap": "^3.12.5",
     "immer": "^10.1.1",
+    "leva": "^0.9.35",
     "prettier": "^3.3.2",
     "prettier-plugin-organize-imports": "^3.2.4",
     "react": "^18.3.1",

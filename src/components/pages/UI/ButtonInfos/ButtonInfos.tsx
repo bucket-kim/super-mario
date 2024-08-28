@@ -33,12 +33,14 @@ const ButtonInfos: FC<ButtonDetailsProps> = ({ data }) => {
     if (buttonIndex === data.name) {
       gsap.to(htmlRef.current, {
         opacity: 1,
+        duration: 0.2,
         visibility: "visible",
         overwrite: true,
       });
     } else {
       gsap.to(htmlRef.current, {
         opacity: 0,
+        duration: 0.2,
         overwrite: true,
         onComplete: () => {
           if (!htmlRef.current) return;
@@ -56,7 +58,7 @@ const ButtonInfos: FC<ButtonDetailsProps> = ({ data }) => {
             setButtonIndex("");
           }}
         >
-          X
+          <img src={"/images/UI/close.svg"} alt="" />
         </button>
         <div className="img-content">
           <img src={data.image} alt={data.name} />

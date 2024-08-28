@@ -1,6 +1,7 @@
 import { FC } from "react";
 import * as THREE from "three";
 import { GLTF } from "three-stdlib";
+import BubbleGas from "./BubbleGas/BubbleGas";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -45,6 +46,7 @@ const Land: FC<LandProps> = ({
         material={itemMaterial}
         userData={{ name: "items_geo" }}
       />
+      <BubbleGas />
     </group>
   );
 };

@@ -6,9 +6,6 @@ const WeatherStyleContainer = styled.div`
   left: 0;
   color: white;
   width: 100%;
-  /* -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: black;
-  font-size: 1.2rem; */
 
   .weather-content {
     display: flex;
@@ -125,6 +122,49 @@ const WeatherStyleContainer = styled.div`
         width: 4rem;
         img {
           width: 100%;
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: 440px) {
+    .weather-content {
+      margin: 0rem 0.75rem;
+      margin-top: 0.75rem;
+      .weather-container {
+        height: 6rem;
+        .weather-place {
+          width: 7rem;
+          h2 {
+            .condition {
+              font-size: 0.7rem;
+            }
+            .temperature {
+              font-size: 2.25rem;
+            }
+            .city {
+              font-size: 0.7rem;
+            }
+          }
+        }
+        .weather-icon {
+          width: 7rem;
+          border: #5faaf4 solid 0.7rem;
+        }
+        .weather-details {
+          width: 7rem;
+          p {
+            font-size: 0.7rem;
+          }
+          .sunrise-timing {
+            margin-top: 0.75rem;
+            span {
+              p {
+                font-size: 0.6rem;
+              }
+              width: 3rem;
+            }
+          }
         }
       }
     }

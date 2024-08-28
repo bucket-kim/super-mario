@@ -9,14 +9,16 @@ import UIStyleContainer from "./UIStyleContainer";
 import Weather from "./Weather/Weather";
 import WeatherForecast from "./WeatherForecast/WeatherForecast";
 const UI = () => {
-  const [currentWeather, setCurrentWeather] = useState(null);
   const [forecastWeather, setForecastWeather] = useState(null);
 
-  const { setCountryDayTime } = useGlobalState((state) => {
-    return {
-      setCountryDayTime: state.setCountryDayTime,
-    };
-  }, shallow);
+  const { setCountryDayTime, currentWeather, setCurrentWeather } =
+    useGlobalState((state) => {
+      return {
+        setCountryDayTime: state.setCountryDayTime,
+        currentWeather: state.currentWeather,
+        setCurrentWeather: state.setCurrentWeather,
+      };
+    }, shallow);
 
   const handleOnSearchChange = async (searchData: string) => {
     if (!searchData) return;

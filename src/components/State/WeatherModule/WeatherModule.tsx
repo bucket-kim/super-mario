@@ -11,6 +11,11 @@ const WeatherModule = ({ set }: globalStateApiType) => {
     setCountryDayTime: (countryDayTime: number) => {
       set({ countryDayTime: countryDayTime });
     },
+
+    currentWeather: null,
+    setCurrentWeather: (currentWeather: null) => {
+      set({ currentWeather: currentWeather });
+    },
   };
 };
 

@@ -25,15 +25,31 @@ const ButtonInfosStyleContainer = styled.div`
   .info-container {
     background: rgba(0, 0, 0, 0.7);
     padding: 2rem;
-    width: 32rem;
+    border-radius: 1rem;
+    height: 42rem;
+    width: 36rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    position: relative;
     /* height: 32rem; */
 
+    button {
+      background: none;
+      border: none;
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      cursor: pointer;
+      img {
+        width: 2rem;
+      }
+    }
+
     .img-content {
-      width: 100%;
+      margin-top: 1.5rem;
+      width: 30rem;
       object-fit: cover;
       img {
         width: 100%;
@@ -45,12 +61,59 @@ const ButtonInfosStyleContainer = styled.div`
       text-align: center;
       width: 100%;
       margin: 1rem 0rem;
+      font-size: 1.5rem;
     }
 
     .info-content {
       width: 100%;
       margin: 1rem 0rem;
       line-height: 1.5rem;
+      font-size: 1rem;
+    }
+  }
+
+  @media only screen and (max-width: 932px) and (max-height: 430px) {
+    .info-container {
+      width: 24rem;
+      height: 100%;
+      button {
+        img {
+          width: 1rem;
+        }
+      }
+      .img-content {
+        width: 20rem;
+      }
+      .title-content {
+        font-size: 0.85rem;
+        margin: 0rem;
+      }
+      .info-content {
+        margin: 0.5rem 0rem;
+        font-size: 0.75rem;
+      }
+    }
+  }
+  @media only screen and (max-width: 440px) {
+    .info-container {
+      width: 24rem;
+      height: 100%;
+      button {
+        img {
+          width: 1rem;
+        }
+      }
+      .img-content {
+        width: 20rem;
+      }
+      .title-content {
+        font-size: 0.85rem;
+        margin: 0rem;
+      }
+      .info-content {
+        margin: 0.5rem 0rem;
+        font-size: 0.75rem;
+      }
     }
   }
 `;
