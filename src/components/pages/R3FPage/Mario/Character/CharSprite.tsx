@@ -8,8 +8,8 @@ const CharSprite = () => {
 
   const [currentTile, setCurrentTile] = useState(4);
 
+  const map = useTexture("images/mario.png");
   const spriteMap = useMemo(() => {
-    const map = useTexture("images/mario.png");
     map.colorSpace = "srgb";
     map.magFilter = THREE.NearestFilter;
     return map;
@@ -78,9 +78,7 @@ const CharSprite = () => {
     }, 2000);
   }, []);
 
-  useEffect(() => {
-    startAnimationSequence();
-  }, []);
+  useEffect(startAnimationSequence, [startAnimationSequence]);
 
   return (
     <group>

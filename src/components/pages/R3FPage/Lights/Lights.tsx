@@ -15,7 +15,7 @@ const Lights = ({ ...props }) => {
         background
         resolution={516}
       /> */}
-      <ambientLight intensity={isSunset ? 0.5 : 1} />
+      <ambientLight intensity={isSunset ? 0.3 : 1} />
       <directionalLight
         position={[-10, 20, 5]}
         castShadow
@@ -32,14 +32,14 @@ const Lights = ({ ...props }) => {
           color={isSunset ? "#2085f6" : "#ffffff"}
         />
         <rectAreaLight
-          intensity={isSunset ? 1.5 : 3}
+          intensity={isSunset ? 1 : 3}
           rotation-y={-Math.PI / 2}
           position={[-10, -5, -1]}
           scale={[10, 2, 1]}
           color={isSunset ? "#2085f6" : "#ffffff"}
         />
         <rectAreaLight
-          intensity={isSunset ? 1 : 1.5}
+          intensity={isSunset ? 0.4 : 1.5}
           rotation-y={Math.PI / 2}
           position={[10, 1, 0]}
           scale={[50, 2, 1]}

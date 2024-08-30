@@ -1,6 +1,6 @@
 import { useFBO } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { FC, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import {
   FloatType,
@@ -21,6 +21,10 @@ type GLTFResult = GLTF & {
   };
 };
 
+interface Weather {
+  weather: { main: string }[];
+}
+
 interface WaterProps {
   nodes: GLTFResult["nodes"];
   [key: string]: any;
@@ -34,11 +38,34 @@ const Water: FC<WaterProps> = ({ nodes, ...props }) => {
   const lakeRef = useRef<THREE.Mesh>(null);
   const lakeMaterialRef = useRef<THREE.ShaderMaterial>(null);
 
-  const { isSunset } = useGlobalState((state) => {
+  const { isSunset, currentWeather } = useGlobalState((state) => {
     return {
       isSunset: state.isSunset,
+      currentWeather: state.currentWeather,
     };
-  }, shallow);
+  }, shallow) as { isSunset: boolean; currentWeather: Weather | null };
+
+  const [waterColor, setWaterColor] = useState("#58c5fe");
+
+  useEffect(() => {
+    if (!currentWeather) return;
+    const weatherCondition = currentWeather.weather[0].main;
+    console.log(weatherCondition);
+    switch (weatherCondition) {
+      case "Clear":
+        setWaterColor("#58c5fe");
+        break;
+      case "Clouds":
+        setWaterColor("#7ab3d1");
+        break;
+      case "Rain":
+        setWaterColor("#4a92b9");
+        break;
+      case "Snow":
+        setWaterColor("#7ab3d1");
+        break;
+    }
+  }, [currentWeather]);
 
   const depthMaterial = new MeshDepthMaterial();
   depthMaterial.depthPacking = RGBADepthPacking;
@@ -120,24 +147,6 @@ const Water: FC<WaterProps> = ({ nodes, ...props }) => {
 
   return (
     <group {...props}>
-      <group position={[0, -4, 0]} visible={false}>
-        <mesh position={[0, 0, 10]}>
-          <boxGeometry args={[40, 10, 1]} />
-          <meshStandardMaterial color={"#ffffff"} />
-        </mesh>
-        <mesh position={[0, 0, -10]}>
-          <boxGeometry args={[40, 10, 1]} />
-          <meshStandardMaterial color={"#ffffff"} />
-        </mesh>
-        <mesh rotation={[0, Math.PI / 2, 0]} position={[10, 0, 0]}>
-          <boxGeometry args={[40, 10, 1]} />
-          <meshStandardMaterial color={"#ffffff"} />
-        </mesh>
-        <mesh rotation={[0, Math.PI / 2, 0]} position={[-10, 0, 0]}>
-          <boxGeometry args={[40, 10, 1]} />
-          <meshStandardMaterial color={"#ffffff"} />
-        </mesh>
-      </group>
       <mesh
         ref={oceanRef}
         name="ocean_geo"
@@ -155,7 +164,7 @@ const Water: FC<WaterProps> = ({ nodes, ...props }) => {
         {/* <meshStandardMaterial color={"#00c3ff"} /> */}
         <oceanMaterial
           ref={oceanMaterialRef}
-          uColor={new THREE.Color(isSunset ? "#438eb6" : "#58c5fe")}
+          uColor={new THREE.Color(isSunset ? "#438eb6" : waterColor)}
           transparent
           uOpacity={1}
           // uNoiseType={noiseType}
@@ -177,7 +186,7 @@ const Water: FC<WaterProps> = ({ nodes, ...props }) => {
       >
         <waterMaterial
           ref={waterMaterialRef}
-          uColor={new THREE.Color(isSunset ? "#438eb6" : "#58c5fe")}
+          uColor={new THREE.Color(isSunset ? "#438eb6" : waterColor)}
           transparent
           uOpacity={1}
           // uNoiseType={noiseType}
@@ -199,7 +208,7 @@ const Water: FC<WaterProps> = ({ nodes, ...props }) => {
       >
         <waterMaterial
           ref={lakeMaterialRef}
-          uColor={new THREE.Color(isSunset ? "#438eb6" : "#58c5fe")}
+          uColor={new THREE.Color(isSunset ? "#438eb6" : waterColor)}
           transparent
           uOpacity={1}
           // uNoiseType={noiseType}
