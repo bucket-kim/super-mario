@@ -1,61 +1,15 @@
 import { useGLTF, useTexture } from "@react-three/drei";
 import { useMemo } from "react";
 import * as THREE from "three";
-import { GLTF } from "three-stdlib";
 import Buttons from "./Buttons/Buttons";
+import CharSprite from "./Character/CharSprite";
 import Clouds from "./Clouds/Clouds";
 import ColorButtons from "./ColorButtons/ColorButtons";
 import Eyeball from "./Eyeball/Eyeball";
+import BubbleGas from "./Land/BubbleGas/BubbleGas";
 import Land from "./Land/Land";
+import { GLTFResult } from "./MarioModelTypes";
 import Water from "./Water/Water";
-
-type GLTFResult = GLTF & {
-  nodes: {
-    blueButton_geo: THREE.Mesh;
-    button_01: THREE.Mesh;
-    button_02: THREE.Mesh;
-    button_03: THREE.Mesh;
-    button_04: THREE.Mesh;
-    button_05: THREE.Mesh;
-    button_06: THREE.Mesh;
-    button_07: THREE.Mesh;
-    button_08: THREE.Mesh;
-    button_09: THREE.Mesh;
-    button_10: THREE.Mesh;
-    button_11: THREE.Mesh;
-    button_12: THREE.Mesh;
-    button_13: THREE.Mesh;
-    button_14: THREE.Mesh;
-    button_15: THREE.Mesh;
-    button_16: THREE.Mesh;
-    button_17: THREE.Mesh;
-    button_18: THREE.Mesh;
-    button_19: THREE.Mesh;
-    button_20: THREE.Mesh;
-    button_21: THREE.Mesh;
-    button_22: THREE.Mesh;
-    button_23: THREE.Mesh;
-    button_24: THREE.Mesh;
-    button_25: THREE.Mesh;
-    cloud001: THREE.Mesh;
-    cloud002: THREE.Mesh;
-    cloud003: THREE.Mesh;
-    cloud004: THREE.Mesh;
-    cloud005: THREE.Mesh;
-    cloud006: THREE.Mesh;
-    cloud007: THREE.Mesh;
-    cloud008: THREE.Mesh;
-    cloud009: THREE.Mesh;
-    eyeball_geo: THREE.Mesh;
-    items_geo: THREE.Mesh;
-    land_geo: THREE.Mesh;
-    ocean_geo: THREE.Mesh;
-    water_geo: THREE.Mesh;
-    lake_geo: THREE.Mesh;
-    greenButton_geo: THREE.Mesh;
-    yellowButton_geo: THREE.Mesh;
-  };
-};
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const MarioModel = (props: any) => {
@@ -119,19 +73,19 @@ const MarioModel = (props: any) => {
 
   return (
     <group {...props} dispose={null}>
-      <Buttons nodes={nodes} />
-      <group>
-        <Clouds nodes={nodes} />
-        <ColorButtons nodes={nodes} buttonMaterial={itemMaterial} />
-        <Land
-          nodes={nodes}
-          landMaterial={landMaterial}
-          itemMaterial={itemMaterial}
-        />
-        <Water nodes={nodes} position={[0, 0.0, 0.0]} />
-      </group>
+      <BubbleGas />
 
+      <Buttons nodes={nodes} />
+      <ColorButtons nodes={nodes} buttonMaterial={itemMaterial} />
+      <Land
+        nodes={nodes}
+        landMaterial={landMaterial}
+        itemMaterial={itemMaterial}
+      />
+      <Clouds nodes={nodes} />
       <Eyeball nodes={nodes} />
+      <Water nodes={nodes} position={[0, 0.0, 0.0]} />
+      <CharSprite />
     </group>
   );
 };

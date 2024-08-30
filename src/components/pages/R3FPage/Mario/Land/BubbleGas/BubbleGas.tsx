@@ -48,9 +48,9 @@ const BubbleGas = () => {
       });
       sizeAnimation
         .to(ref.scale, {
-          x: 0.02,
-          y: 0.02,
-          z: 0.02,
+          x: 0.025,
+          y: 0.025,
+          z: 0.025,
           duration: 1,
           ease: "sine.inOut",
         })

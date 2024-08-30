@@ -10,7 +10,7 @@ const Camera = () => {
   const maxX = 20;
   const minX = -20;
   const maxY = 15;
-  const minY = -1;
+  const minY = 0;
 
   const limitPanningDistance = (e: THREE.Event) => {
     // if (!cameraRef.current) return;
