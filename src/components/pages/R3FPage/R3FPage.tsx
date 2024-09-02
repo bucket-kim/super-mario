@@ -7,6 +7,7 @@ import Camera from "./Camera/Camera";
 import Lights from "./Lights/Lights";
 import MarioModel from "./Mario/MarioModel";
 import R3FPageStyleContainer from "./R3FPageStyleContainer";
+import Weather from "./WeatherMesh/Weather";
 
 interface Weather {
   weather: { main: string }[];
@@ -28,7 +29,7 @@ const R3FPage = () => {
   useEffect(() => {
     if (!currentWeather) return;
     const weatherCondition = currentWeather.weather[0].main;
-    console.log(weatherCondition);
+    console.log(currentWeather);
     switch (weatherCondition) {
       case "Clear":
         setWeatherBG("#88d2fa");
@@ -62,7 +63,8 @@ const R3FPage = () => {
 
         <Camera />
         <Lights />
-        <MarioModel position={[0, 0, 0]} />
+        <Weather isSunset={isSunset} />
+        <MarioModel position={[0, -1, 0]} />
       </Canvas>
     </R3FPageStyleContainer>
   );

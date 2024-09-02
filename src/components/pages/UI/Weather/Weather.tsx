@@ -77,7 +77,7 @@ const Weather: FC<WeatherProps> = ({ currentWeather }) => {
     } else {
       setShowSearch(false);
     }
-  }, [showSearch]);
+  }, [setShowSearch, showSearch]);
 
   return currentWeather ? (
     <WeatherStyleContainer>
@@ -86,7 +86,9 @@ const Weather: FC<WeatherProps> = ({ currentWeather }) => {
           <div className="weather-place">
             <h2>
               <span className="condition">
-                {currentWeather.weather[0].main}
+                {currentWeather.weather[0].main === "Smoke"
+                  ? "Wind"
+                  : currentWeather.weather[0].main}
               </span>
               <span className="temperature">
                 {Math.round((currentWeather.main.temp - 273.15) * 10) / 10}°C
