@@ -24,7 +24,7 @@ const Cloud: FC<CloudProps> = ({ nodes, ...props }) => {
   }, []);
 
   return (
-    <group {...props} dispose={null} position={[-0.7, -0.5, 0]}>
+    <group {...props} dispose={null} position={[-0.4, -0.5, 0]}>
       {cloud001Data.map((cloud: any, index: number) => (
         <mesh
           key={index}
