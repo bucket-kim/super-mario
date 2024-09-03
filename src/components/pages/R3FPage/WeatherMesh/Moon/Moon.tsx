@@ -1,4 +1,3 @@
-import { useGLTF } from "@react-three/drei";
 import { FC, useMemo } from "react";
 import * as THREE from "three";
 import { GLTF } from "three-stdlib";
@@ -9,9 +8,11 @@ type GLTFResult = GLTF & {
   };
 };
 
-const Moon: FC = ({ ...props }) => {
-  const { nodes } = useGLTF("/models/moon.glb") as unknown as GLTFResult;
+interface MoonProps {
+  nodes: GLTFResult["nodes"];
+}
 
+const Moon: FC<MoonProps> = ({ nodes, ...props }) => {
   const moonMaterial = useMemo(() => {
     return new THREE.MeshStandardMaterial({
       color: "#cbd7e0",
@@ -38,5 +39,3 @@ const Moon: FC = ({ ...props }) => {
 };
 
 export default Moon;
-
-useGLTF.preload("/models/moon.glb");

@@ -27,7 +27,7 @@ const Lights = ({ ...props }) => {
         <rectAreaLight
           intensity={isSunset ? 0.5 : 1}
           rotation-y={-Math.PI / 2}
-          position={[-5, -1, -1]}
+          position={[-7, -1, -1]}
           scale={[50, 2, 1]}
           color={isSunset ? "#2085f6" : "#ffffff"}
         />

@@ -29,7 +29,6 @@ const R3FPage = () => {
   useEffect(() => {
     if (!currentWeather) return;
     const weatherCondition = currentWeather.weather[0].main;
-    console.log(currentWeather);
     switch (weatherCondition) {
       case "Clear":
         setWeatherBG("#88d2fa");
@@ -63,7 +62,7 @@ const R3FPage = () => {
 
         <Camera />
         <Lights />
-        <Weather isSunset={isSunset} />
+        <Weather isSunset={isSunset} currentWeather={currentWeather} />
         <MarioModel position={[0, -1, 0]} />
       </Canvas>
     </R3FPageStyleContainer>
