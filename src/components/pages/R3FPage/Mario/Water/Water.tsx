@@ -50,7 +50,6 @@ const Water: FC<WaterProps> = ({ nodes, ...props }) => {
   useEffect(() => {
     if (!currentWeather) return;
     const weatherCondition = currentWeather.weather[0].main;
-    console.log(weatherCondition);
     switch (weatherCondition) {
       case "Clear":
         setWaterColor("#58c5fe");

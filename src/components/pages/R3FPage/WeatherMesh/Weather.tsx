@@ -25,6 +25,9 @@ const Weather: FC<WeatherProps> = ({ isSunset, currentWeather, ...props }) => {
   const { nodes } = useGLTF(
     "/models/weatherModel.glb",
   ) as unknown as GLTFResult;
+
+  const weatherMain = currentWeather?.weather?.[0]?.main;
+
   return (
     <group {...props}>
       {isSunset ? (
@@ -32,8 +35,8 @@ const Weather: FC<WeatherProps> = ({ isSunset, currentWeather, ...props }) => {
       ) : (
         <Sun position={[2.5, 3.5, -3]} scale={0.4} />
       )}
-      {currentWeather.weather[0].main === "Clouds" && <Cloud nodes={nodes} />}
-      {currentWeather.weather[0].main === "Rain" && <Rain nodes={nodes} />}
+      {weatherMain === "Clouds" ? <Cloud nodes={nodes} /> : null}
+      {weatherMain === "Rain" ? <Rain nodes={nodes} /> : null}
     </group>
   );
 };
