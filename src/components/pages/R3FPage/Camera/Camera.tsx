@@ -35,9 +35,10 @@ const Camera = () => {
       <DreiOrbitControls
         // ref={cameraRef}
         minDistance={5}
-        maxDistance={15}
+        maxDistance={12.5}
         onChange={(e) => {
-          // @ts-ignore
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
           limitPanningDistance(e);
         }}
         minPolarAngle={degToRad(-10)}

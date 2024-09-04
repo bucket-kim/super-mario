@@ -49,7 +49,7 @@ const R3FPage = () => {
     <R3FPageStyleContainer>
       <Canvas
         shadows
-        gl={{ antialias: false }}
+        gl={{ antialias: true }}
         camera={{ position: [0, 4, 12], fov: 35 }}
         dpr={[1, 2]}
       >
