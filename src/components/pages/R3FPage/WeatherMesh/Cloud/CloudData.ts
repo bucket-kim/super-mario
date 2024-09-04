@@ -8,7 +8,7 @@ export const cloud001Data: CloudData[] = [
     position: {
       x: -2.5,
       y: 3.3,
-      z: -1,
+      z: 1,
     },
     scale: 1,
   },
@@ -16,9 +16,9 @@ export const cloud001Data: CloudData[] = [
     position: {
       x: 3.5,
       y: 3,
-      z: -2,
+      z: 0,
     },
-    scale: 0.7,
+    scale: 1,
   },
   {
     position: {
@@ -34,32 +34,32 @@ export const cloud002Data: CloudData[] = [
     position: {
       x: -4.5,
       y: 2.4,
-      z: -2,
-    },
-    scale: 0.5,
-  },
-  {
-    position: {
-      x: 0.77,
-      y: 3,
       z: -3,
     },
-    scale: 0.51,
+    scale: 0.7,
   },
   {
     position: {
-      x: 2,
+      x: -0.7,
+      y: 3,
+      z: -2,
+    },
+    scale: 1,
+  },
+  {
+    position: {
+      x: 1,
       y: 2.77,
-      z: 1.28,
+      z: 1.4,
     },
-    scale: 0.6,
+    scale: 0.8,
   },
   {
     position: {
-      x: 5,
+      x: 6,
       y: 3.65,
-      z: -1,
+      z: -1.5,
     },
-    scale: 0.5,
+    scale: 1.2,
   },
 ];
