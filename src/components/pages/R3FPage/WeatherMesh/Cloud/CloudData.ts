@@ -52,11 +52,11 @@ export const cloud002Data: CloudData[] = [
       y: 2.77,
       z: 1.4,
     },
-    scale: 0.8,
+    scale: 0.6,
   },
   {
     position: {
-      x: 6,
+      x: 5,
       y: 3.65,
       z: -1.5,
     },
