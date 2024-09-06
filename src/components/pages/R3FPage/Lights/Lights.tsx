@@ -28,21 +28,21 @@ const Lights = ({ ...props }) => {
           intensity={isSunset ? 0.5 : 1}
           rotation-y={-Math.PI / 2}
           position={[-7, -1, -1]}
-          scale={[50, 2, 1]}
+          scale={[50, 4, 1]}
           color={isSunset ? "#2085f6" : "#ffffff"}
         />
         <rectAreaLight
           intensity={isSunset ? 1 : 3}
           rotation-y={-Math.PI / 2}
           position={[-10, -5, -1]}
-          scale={[10, 2, 1]}
+          scale={[10, 4, 1]}
           color={isSunset ? "#2085f6" : "#ffffff"}
         />
         <rectAreaLight
           intensity={isSunset ? 0.4 : 1.5}
           rotation-y={Math.PI / 2}
           position={[10, 1, 0]}
-          scale={[50, 2, 1]}
+          scale={[50, 4, 1]}
           color={isSunset ? "#67aefc" : "#ffffff"}
         />
       </group>

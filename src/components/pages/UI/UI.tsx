@@ -81,12 +81,17 @@ const UI = () => {
 
   return (
     <UIStyleContainer>
-      {/* search UI */}
-      <Search onSearchChange={handleOnSearchChange} />
-      {/* weather UI */}
-      <Weather currentWeather={currentWeather} />
+      <div className="UI-container">
+        {/* search UI */}
+
+        <Search onSearchChange={handleOnSearchChange} />
+        {/* weather UI */}
+        <Weather currentWeather={currentWeather} />
+      </div>
+
       {/* forcast UI */}
       <WeatherForecast forecastWeather={forecastWeather} />
+
       {/* Stage Info UI */}
       {datas.map((data, index) => (
         <ButtonInfos data={data} key={index} />

@@ -1,14 +1,15 @@
 import styled from "styled-components";
 
 const SearchStyleContainer = styled.div`
-  position: fixed;
+  /* position: fixed;
   top: 11rem;
   left: 2rem;
-  z-index: 2;
+  z-index: 2; */
 
   .search-content {
     input {
       width: 16rem;
+      background: transparent;
     }
   }
 

@@ -37,7 +37,7 @@ const R3FPage = () => {
         setWeatherBG("#b7cbd6");
         break;
       case "Rain":
-        setWeatherBG("#75a0b7");
+        setWeatherBG("#81b1cb");
         break;
       case "Snow":
         setWeatherBG("#b7cbd6");
@@ -53,7 +53,7 @@ const R3FPage = () => {
         camera={{ position: [0, 4, 12], fov: 35 }}
         dpr={[1, 2]}
       >
-        {/* <fog attach="fog" args={["#c9e5f6", 10, 80]} /> */}
+        <fog attach="fog" args={["#c9e5f6", 10, 80]} />
         <color
           attach="background"
           args={[isSunset ? "#08223f" : weatherBG]}

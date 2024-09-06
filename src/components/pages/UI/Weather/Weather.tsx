@@ -1,7 +1,6 @@
-import { FC, useCallback, useEffect, useRef } from "react";
+import { FC, useCallback, useEffect } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../State/useGlobalState";
-import { handleArrowAnimation } from "./WeatherAnimationLogic";
 import WeatherStyleContainer from "./WeatherStyleContainer";
 
 interface WeatherProps {
@@ -9,36 +8,20 @@ interface WeatherProps {
 }
 
 const Weather: FC<WeatherProps> = ({ currentWeather }) => {
-  const {
-    clickForecastArrow,
-    setClickForecastArrow,
-    setIsSunset,
-    setShowSearch,
-    showSearch,
-  } = useGlobalState((state) => {
+  const { setIsSunset, isCelsius, setIsCelsius } = useGlobalState((state) => {
     return {
-      clickForecastArrow: state.clickForecastArrow,
-      setClickForecastArrow: state.setClickForecastArrow,
       setIsSunset: state.setIsSunset,
-      setShowSearch: state.setShowSearch,
-      showSearch: state.showSearch,
+      isCelsius: state.isCelsius,
+      setIsCelsius: state.setIsCelsius,
     };
   }, shallow);
 
-  const arrowButtonRef = useRef<HTMLButtonElement>(null);
-
-  const handleArrowClick = () => {
-    if (clickForecastArrow === true) {
-      setClickForecastArrow(false);
-    } else {
-      setClickForecastArrow(true);
-    }
+  const handleCelsiusTemp = () => {
+    setIsCelsius(true);
   };
-
-  useEffect(() => {
-    if (!arrowButtonRef.current) return;
-    handleArrowAnimation(arrowButtonRef.current, clickForecastArrow);
-  }, [clickForecastArrow]);
+  const handleFarenheitTemp = () => {
+    setIsCelsius(false);
+  };
 
   const handleIsSunsetCondition = useCallback(() => {
     if (!currentWeather) return;
@@ -55,93 +38,100 @@ const Weather: FC<WeatherProps> = ({ currentWeather }) => {
 
   useEffect(handleIsSunsetCondition, [handleIsSunsetCondition]);
 
-  const formatUnixTimestamp = (unixTimestamp: number) => {
-    // Convert Unix timestamp to milliseconds
-    const date = new Date(unixTimestamp * 1000);
+  // const formatUnixTimestamp = (unixTimestamp: number) => {
+  //   // Convert Unix timestamp to milliseconds
+  //   const date = new Date(unixTimestamp * 1000);
 
-    // Extract hours, minutes, and seconds
-    const hours = date.getUTCHours().toString().padStart(2, "0");
-    const minutes = date.getUTCMinutes().toString().padStart(2, "0");
+  //   // Extract hours, minutes, and seconds
+  //   const hours = date.getUTCHours().toString().padStart(2, "0");
+  //   const minutes = date.getUTCMinutes().toString().padStart(2, "0");
 
-    // Return formatted time as HH:MM:SS
-    return (
-      <p>
-        {hours}:{minutes} {parseInt(hours) >= 12 ? "PM" : "AM"}
-      </p>
-    );
-  };
-
-  const handleMarkerClick = useCallback(() => {
-    if (showSearch === false) {
-      setShowSearch(true);
-    } else {
-      setShowSearch(false);
-    }
-  }, [setShowSearch, showSearch]);
+  //   // Return formatted time as HH:MM:SS
+  //   return (
+  //     <p>
+  //       {hours}:{minutes} {parseInt(hours) >= 12 ? "PM" : "AM"}
+  //     </p>
+  //   );
+  // };
 
   return currentWeather ? (
     <WeatherStyleContainer>
-      <div className="weather-content">
-        <div className="weather-container">
-          <div className="weather-place">
-            <h2>
-              <span className="condition">
-                {currentWeather.weather[0].main === "Smoke"
-                  ? "Wind"
-                  : currentWeather.weather[0].main}
-              </span>
-              <span className="temperature">
-                {Math.round((currentWeather.main.temp - 273.15) * 10) / 10}°C
-              </span>
-              <span className="city">
-                {currentWeather.name}
-                <button onClick={handleMarkerClick}>
-                  <img src="/images/UI/map-marker.svg" alt="" />
-                </button>
-              </span>
-            </h2>
+      <div className="weather-container">
+        <div className="weather-top">
+          <div className="city">
+            <p>{currentWeather.name}</p>
+
+            <img src="/images/UI/map-marker.svg" alt="" />
           </div>
           <div className="weather-icon">
             <img
               src={`images/weatherui/${currentWeather.weather[0].icon}.png`}
               alt=""
             />
-            {/* <h1>{currentWeather.weather[0].main}</h1> */}
           </div>
-
+        </div>
+        <div className="weather-mid">
+          <div className="temperature">
+            <h1>
+              {isCelsius
+                ? Math.round(currentWeather.main.temp - 273.15)
+                : Math.round((currentWeather.main.temp - 273.15) * 1.8 + 32)}
+              °
+            </h1>
+          </div>
           <div className="weather-details">
-            <p>
-              <span>Wind</span>
-              <span>{currentWeather.wind.speed} km/h</span>
-            </p>
-            <p>
-              <span>Humidity</span>
-              <span>{currentWeather.main.humidity} %</span>
-            </p>
-            <p>
-              <span>Pressure</span>
-              <span>{currentWeather.main.pressure} mb</span>
-            </p>
-            <div className="sunrise-timing">
-              <span>
-                {formatUnixTimestamp(
-                  currentWeather.sys.sunrise + currentWeather.timezone,
-                )}
-                <img src="/images/weatherui/sunrise.png" alt="" />
-              </span>
-              <span>
-                {formatUnixTimestamp(
-                  currentWeather.sys.sunset + currentWeather.timezone,
-                )}
-                <img src="/images/weatherui/sunset.png" alt="" />
-              </span>
+            <div className="condition">
+              <p>
+                {currentWeather.weather[0].main === "Smoke"
+                  ? "Wind"
+                  : currentWeather.weather[0].main}
+              </p>
+            </div>
+            <div className="temp-high-low">
+              <p>
+                <span>
+                  H:{" "}
+                  {isCelsius
+                    ? Math.round(currentWeather.main.temp_max - 273.15)
+                    : Math.round(
+                        (currentWeather.main.temp_max - 273.15) * 1.8 + 32,
+                      )}
+                  °
+                </span>
+                {"  "}
+                <span>
+                  L:{" "}
+                  {isCelsius
+                    ? Math.round(currentWeather.main.temp_min - 273.15)
+                    : Math.round(
+                        (currentWeather.main.temp_min - 273.15) * 1.8 + 32,
+                      )}
+                  °
+                </span>
+              </p>
             </div>
           </div>
         </div>
-        <div className="weather-button">
-          <button onClick={handleArrowClick} ref={arrowButtonRef}>
-            <img src="/images/weatherui/arrow.png" alt="" />
-          </button>
+        <div className="weather-bottom">
+          <div className="temp-unit">
+            <button onClick={handleCelsiusTemp}>C</button>
+            <span>/</span>
+            <button onClick={handleFarenheitTemp}>F</button>
+          </div>
+          {/* <div className="sunrise-timing">
+            <span>
+              <img src="/images/weatherui/sunrise.png" alt="" />
+              {formatUnixTimestamp(
+                currentWeather.sys.sunrise + currentWeather.timezone,
+              )}
+            </span>
+            <span>
+              <img src="/images/weatherui/sunset.png" alt="" />
+              {formatUnixTimestamp(
+                currentWeather.sys.sunset + currentWeather.timezone,
+              )}
+            </span>
+          </div> */}
         </div>
       </div>
     </WeatherStyleContainer>

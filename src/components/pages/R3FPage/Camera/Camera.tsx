@@ -9,7 +9,7 @@ const Camera = () => {
 
   const maxX = 20;
   const minX = -20;
-  const maxY = 15;
+  const maxY = 8;
   const minY = 0;
 
   const limitPanningDistance = (e: THREE.Event) => {
@@ -35,7 +35,7 @@ const Camera = () => {
       <DreiOrbitControls
         // ref={cameraRef}
         minDistance={5}
-        maxDistance={12.5}
+        maxDistance={14}
         onChange={(e) => {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-expect-error

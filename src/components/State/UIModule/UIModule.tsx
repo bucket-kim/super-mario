@@ -11,11 +11,6 @@ const UIModule = ({ set }: globalStateApiType) => {
       set({ loaded: loaded });
     },
 
-    clickForecastArrow: false,
-    setClickForecastArrow: (clickForecastArrow: boolean) => {
-      set({ clickForecastArrow: clickForecastArrow });
-    },
-
     showSearch: false,
     setShowSearch: (showSearch: boolean) => {
       set({ showSearch: showSearch });

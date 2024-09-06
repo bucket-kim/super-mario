@@ -1,127 +1,101 @@
 import styled from "styled-components";
 
 const WeatherStyleContainer = styled.div`
-  position: fixed;
+  /* position: fixed;
   top: 0;
-  left: 0;
+  left: 0; */
+  height: 8rem;
   color: white;
-  width: 100%;
+  font-size: 1.2rem;
 
-  .weather-content {
+  .weather-container {
+    width: 100%;
+    height: 100%;
+    margin-top: 1rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0rem 2rem;
-    margin-top: 2rem;
-    .weather-container {
+    /* align-items: flex-end; */
+    justify-content: space-between;
+
+    .weather-top {
       width: 100%;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      /* padding: 0.5rem; */
-      height: 8rem;
-      .weather-place {
-        width: 14rem;
-        height: 100%;
-        display: flex;
-        /* align-items: center; */
-        justify-content: flex-start;
-        /* background: red; */
-        h2 {
-          /* font-weight: 900; */
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          .city,
-          .condition {
-            font-size: 1rem;
-            font-weight: 400;
-          }
 
-          .city {
-            display: flex;
-            align-items: center;
-            button {
-              border: none;
-              background: transparent;
-              color: white;
-              margin-left: 0.4rem;
-              height: 1.5rem;
-              cursor: pointer;
-              img {
-                height: 100%;
-                object-fit: contain;
-              }
-            }
-          }
-          .temperature {
-            font-size: 5rem;
-            font-weight: 400;
-          }
-        }
-      }
-
-      .weather-icon {
-        width: 10rem;
-        height: 100%;
+      .city {
+        height: 1rem;
         display: flex;
         align-items: center;
-        justify-content: center;
-        /* background: red; */
-        padding: 0.5rem;
-        border: #5faaf4 solid 1rem;
-        /* border: #ffffff solid 1rem; */
-        border-radius: 2rem;
-
+        p {
+          margin: 0;
+        }
         img {
-          width: 100%;
+          margin-left: 0.25rem;
           height: 100%;
           object-fit: contain;
         }
       }
 
-      .weather-details {
-        width: 14rem;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: space-between;
-        p {
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-        }
-        /* background: red; */
-        /* font-weight: 900; */
-        .sunrise-timing {
-          margin-top: 1.5rem;
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-          span {
-            width: 5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            img {
-              width: 100%;
-              object-fit: contain;
-            }
-          }
+      .weather-icon {
+        height: 1.25rem;
+        img {
+          height: 100%;
+          object-fit: contain;
         }
       }
     }
-    .weather-button {
-      margin-top: 1rem;
-      button {
-        cursor: pointer;
-        background: transparent;
-        border: none;
-        width: 4rem;
-        img {
-          width: 100%;
+    .weather-mid {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      .temperature {
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        h1 {
+          font-weight: 300;
+          font-size: 4rem;
+        }
+      }
+      .weather-details {
+        height: 3rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-between;
+      }
+    }
+    .weather-bottom {
+      display: flex;
+      justify-content: space-between;
+      .temp-unit {
+        font-size: 1.25rem;
+        span {
+          margin: 0rem 0.4rem;
+        }
+        button {
+          cursor: pointer;
+          font-size: 1.25rem;
+          color: white;
+          border: none;
+          background: none;
+        }
+      }
+      .sunrise-timing {
+        height: 1.25rem;
+        display: flex;
+        justify-content: space-between;
+        span {
+          display: flex;
+          flex-direction: column;
+          font-size: 0.75rem;
+
+          img {
+            height: 100%;
+            object-fit: contain;
+          }
         }
       }
     }

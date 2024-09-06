@@ -5,6 +5,8 @@ const arrowAnimation = gsap.timeline({ paused: true });
 const handleArrowAnimation = (
   arrowButtonRef: HTMLButtonElement,
   clicked: boolean,
+
+  complete: void,
 ) => {
   gsap.killTweensOf(arrowAnimation);
 
@@ -12,7 +14,10 @@ const handleArrowAnimation = (
     rotateX: clicked ? 180 : 0,
     transformOrigin: "center",
     overwrite: true,
-    duration: 0.2,
+    duration: 0.5,
+    onComplete: () => {
+      complete;
+    },
   });
 
   arrowAnimation.play();

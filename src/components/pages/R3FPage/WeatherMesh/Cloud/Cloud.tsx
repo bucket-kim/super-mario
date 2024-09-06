@@ -1,3 +1,4 @@
+import { Instance, Instances } from "@react-three/drei";
 import { FC, useMemo } from "react";
 import * as THREE from "three";
 import { GLTF } from "three-stdlib";
@@ -25,32 +26,44 @@ const Cloud: FC<CloudProps> = ({ nodes, ...props }) => {
 
   return (
     <group {...props} dispose={null} position={[-0.4, -0.5, 0]}>
-      {cloud001Data.map((cloud: any, index: number) => (
-        <mesh
-          key={index}
-          name="cloud001_geo"
-          castShadow
-          receiveShadow
-          position={[cloud.position.x, cloud.position.y, cloud.position.z]}
-          geometry={nodes.cloud001_geo.geometry}
-          material={cloudMaterial}
-          scale={cloud.scale}
-          userData={{ name: "cloud001_geo" }}
-        />
-      ))}
-      {cloud002Data.map((cloud: any, index: number) => (
-        <mesh
-          key={index}
-          name="cloud002_geo"
-          castShadow
-          receiveShadow
-          position={[cloud.position.x, cloud.position.y, cloud.position.z]}
-          geometry={nodes.cloud002_geo.geometry}
-          material={cloudMaterial}
-          scale={cloud.scale}
-          userData={{ name: "cloud002_geo" }}
-        />
-      ))}
+      <Instances
+        geometry={nodes.cloud001_geo.geometry}
+        material={cloudMaterial}
+        limit={10}
+        range={10}
+        name="cloud001_geo"
+        userData={{ name: "cloud001_geo" }}
+        frustumCulled={false}
+      >
+        {cloud001Data.map((cloud: any, index: number) => (
+          <Instance
+            key={index}
+            castShadow
+            receiveShadow
+            position={[cloud.position.x, cloud.position.y, cloud.position.z]}
+            scale={cloud.scale}
+          />
+        ))}
+      </Instances>
+      <Instances
+        name="cloud002_geo"
+        geometry={nodes.cloud002_geo.geometry}
+        userData={{ name: "cloud002_geo" }}
+        material={cloudMaterial}
+        limit={10}
+        range={10}
+        frustumCulled={false}
+      >
+        {cloud002Data.map((cloud: any, index: number) => (
+          <Instance
+            key={index}
+            position={[cloud.position.x, cloud.position.y, cloud.position.z]}
+            castShadow
+            receiveShadow
+            scale={cloud.scale}
+          />
+        ))}
+      </Instances>
     </group>
   );
 };

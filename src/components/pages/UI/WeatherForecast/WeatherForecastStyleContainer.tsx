@@ -1,36 +1,44 @@
 import styled from "styled-components";
 
 const WeatherForecastStyleContainer = styled.div`
-  position: fixed;
-  top: 13rem;
-  left: 50%;
-  transform: translate(-50%, 0%);
-  width: 100%;
-  opacity: 0;
-  visibility: hidden;
+  margin: 0rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  font-weight: 500;
 
+  .forecast-header {
+    display: flex;
+    p {
+      margin-right: 1rem;
+    }
+  }
   .forecast-container {
+    width: 100%;
     display: flex;
     align-items: center;
+    flex-direction: column;
     justify-content: space-between;
-    margin: 0rem 1.5rem;
+    /* padding: 0rem 1.5rem; */
 
     .weather-container {
-      color: white;
-      background: rgba(0, 0, 0, 0.7);
-      /* width: 14rem; */
+      visibility: hidden;
+      opacity: 0;
       width: 100%;
-      margin: 0.5rem;
-      height: 11rem;
-      padding: 0.5rem;
+      height: 4rem;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: space-between;
+      border-bottom: #ffffff 1.5px solid;
+
+      .weather-date {
+        color: #ffffff;
+      }
 
       .weather-icon {
         /* width: 12rem; */
-        height: 4rem;
+        height: 1.6rem;
         img {
           width: 100%;
           height: 100%;
@@ -41,10 +49,18 @@ const WeatherForecastStyleContainer = styled.div`
       .weather-description {
         height: 100%;
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: space-between;
+        p {
+          margin: 0rem 0.2rem;
+        }
+        p:nth-child(2) {
+          color: #ffffff;
+        }
       }
+    }
+    .weather-container:nth-last-child(1) {
+      border: none;
     }
   }
 `;

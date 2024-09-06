@@ -1,7 +1,9 @@
 import gsap from "gsap";
-import { FC, useCallback, useEffect, useRef } from "react";
+import { FC, Fragment, useEffect, useRef, useState } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../State/useGlobalState";
+import { handleArrowAnimation } from "../Weather/WeatherAnimationLogic";
+import ArrowSign from "./ArrowSign/ArrowSign";
 import WeatherForecastStyleContainer from "./WeatherForecastStyleContainer";
 
 interface ForecastProps {
@@ -24,81 +26,106 @@ const WeatherForecast: FC<ForecastProps> = ({ forecastWeather }) => {
   const forecastDay = DAYS.slice(dayInWeek, DAYS.length).concat(
     DAYS.slice(0, dayInWeek),
   );
-
   const weatherForecastDivRef = useRef<HTMLDivElement>(null);
+  const forcastContainerDivRef = useRef<(HTMLDivElement | null)[]>([]);
+  const arrowButtonRef = useRef<HTMLButtonElement>(null);
 
-  const { clickForecastArrow } = useGlobalState((state) => {
+  const [clickForecastArrow, setClickForecastArrow] = useState(false);
+  const [showForecast, setShowForecast] = useState(false);
+
+  const { isCelsius } = useGlobalState((state) => {
     return {
-      clickForecastArrow: state.clickForecastArrow,
+      isCelsius: state.isCelsius,
     };
   }, shallow);
 
-  const handleWeatherForecastAnim = useCallback(() => {
-    if (!weatherForecastDivRef.current) return;
-    if (clickForecastArrow) {
-      gsap.fromTo(
-        weatherForecastDivRef.current,
-        {
-          y: -30,
-          opacity: 0,
-          visibility: "hidden",
-        },
-        {
-          opacity: 1,
-          visibility: "visible",
-          overwrite: true,
-          duration: 0.25,
-          y: 0,
-        },
-      );
+  const handleArrowClick = () => {
+    setClickForecastArrow((prev) => !prev);
+  };
+
+  useEffect(() => {
+    if (!arrowButtonRef.current) return;
+    // const height = weatherForecastDivRef.current.getBoundingClientRect().height;
+    handleArrowAnimation(
+      arrowButtonRef.current,
+      clickForecastArrow,
+      setShowForecast((prev) => !prev),
+    );
+  }, [clickForecastArrow]);
+
+  useEffect(() => {
+    if (!forcastContainerDivRef.current) return;
+
+    if (showForecast) {
+      gsap.to(forcastContainerDivRef.current, {
+        stagger: 0.15,
+
+        opacity: 1,
+        visibility: "visible",
+      });
     } else {
-      gsap.to(weatherForecastDivRef.current, {
-        y: -30,
-        duration: 0.25,
+      gsap.to(forcastContainerDivRef.current, {
+        stagger: 0.15,
+
         opacity: 0,
-        overwrite: true,
         onComplete: () => {
-          if (!weatherForecastDivRef.current) return;
-          weatherForecastDivRef.current.style.visibility = "hidden";
+          forcastContainerDivRef.current.forEach((el) => {
+            if (!el) return;
+            el.style.visibility = "hidden";
+          });
         },
       });
     }
-  }, [clickForecastArrow]);
-
-  useEffect(handleWeatherForecastAnim, [handleWeatherForecastAnim]);
-
-  // useEffect(() => {
-  //   if (!forecastWeather) return;
-  //   forecastWeather.list
-  //     .slice(0, 7)
-  //     .map((data: any) =>
-  //       console.log(`${data.main.temp_max}, ${data.main.temp_min}`),
-  //     );
-  // }, [forecastWeather]);
+  }, [showForecast]);
 
   return !forecastWeather ? null : (
-    <WeatherForecastStyleContainer ref={weatherForecastDivRef}>
-      <div className="forecast-container">
-        {forecastWeather.list.slice(0, 7).map((data: any, index: number) => (
-          <div key={index} className="weather-container">
-            <div className="weather-icon">
-              <img
-                src={`images/weatherui/${data.weather[0].icon}.png`}
-                alt=""
-              />
-            </div>
-            <div className="weather-description">
-              <div>
-                <h1>{forecastDay[index]}</h1>
-              </div>
+    <Fragment>
+      <WeatherForecastStyleContainer ref={weatherForecastDivRef}>
+        <div className="forecast-header">
+          <p>3-Day Forecast</p>
+          <ArrowSign ref={arrowButtonRef} handleArrowClick={handleArrowClick} />
+        </div>
 
-              <p>{Math.round((data.main.temp_max - 273.15) * 10) / 10} °C</p>
-              <p>{Math.round((data.main.temp_min - 273.15) * 10) / 10} °C</p>
+        <div className="forecast-container">
+          {forecastWeather.list.slice(0, 3).map((data: any, index: number) => (
+            <div
+              key={index}
+              className="weather-container"
+              ref={(el) => (forcastContainerDivRef.current[index] = el)}
+            >
+              <div className="weather-date">
+                <p>{forecastDay[index].slice(0, 3)}</p>
+              </div>
+              <div className="weather-icon">
+                <img
+                  src={`images/weatherui/${data.weather[0].icon}.png`}
+                  alt=""
+                />
+              </div>
+              <div className="weather-description">
+                <p>
+                  {isCelsius
+                    ? Math.round(data.main.temp_max - 273.15)
+                    : Math.round(
+                        (data.main.temp_max - 273.15) * (9 / 5) + 32,
+                      )}{" "}
+                  {isCelsius ? "°C" : "°F"}
+                </p>
+                /
+                <p>
+                  {isCelsius
+                    ? Math.round(data.main.temp_min - 273.15)
+                    : Math.round(
+                        (data.main.temp_min - 273.15) * (9 / 5) + 32,
+                      )}{" "}
+                  {isCelsius ? "°C" : "°F"}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-    </WeatherForecastStyleContainer>
+          ))}
+        </div>
+      </WeatherForecastStyleContainer>
+    </Fragment>
   );
 };
 

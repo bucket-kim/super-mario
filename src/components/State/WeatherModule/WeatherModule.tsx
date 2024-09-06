@@ -16,6 +16,11 @@ const WeatherModule = ({ set }: globalStateApiType) => {
     setCurrentWeather: (currentWeather: null) => {
       set({ currentWeather: currentWeather });
     },
+
+    isCelsius: true,
+    setIsCelsius: (isCelsius: boolean) => {
+      set({ isCelsius: isCelsius });
+    },
   };
 };
 
