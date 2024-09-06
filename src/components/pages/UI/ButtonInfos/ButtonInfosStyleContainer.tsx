@@ -39,7 +39,7 @@ const ButtonInfosStyleContainer = styled.div`
       border: none;
       position: absolute;
       top: 1rem;
-      left: 1rem;
+      right: 1rem;
       cursor: pointer;
       img {
         width: 2rem;

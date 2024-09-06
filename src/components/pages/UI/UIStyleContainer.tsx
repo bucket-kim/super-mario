@@ -14,6 +14,14 @@ const UIStyleContainer = styled.div`
     padding: 2rem;
     border-radius: 1rem;
   }
+
+  @media only screen and (max-width: 440px) {
+    margin: 0rem;
+
+    .UI-container {
+      padding: 1rem;
+    }
+  }
 `;
 
 export default UIStyleContainer;
