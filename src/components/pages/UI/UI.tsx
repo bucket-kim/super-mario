@@ -87,10 +87,9 @@ const UI = () => {
         <Search onSearchChange={handleOnSearchChange} />
         {/* weather UI */}
         <Weather currentWeather={currentWeather} />
+        {/* forcast UI */}
+        <WeatherForecast forecastWeather={forecastWeather} />
       </div>
-
-      {/* forcast UI */}
-      <WeatherForecast forecastWeather={forecastWeather} />
 
       {/* Stage Info UI */}
       {datas.map((data, index) => (

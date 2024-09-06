@@ -5,7 +5,6 @@ const WeatherStyleContainer = styled.div`
   top: 0;
   left: 0; */
   height: 8rem;
-  color: white;
   font-size: 1.2rem;
 
   .weather-container {
@@ -78,7 +77,7 @@ const WeatherStyleContainer = styled.div`
         button {
           cursor: pointer;
           font-size: 1.25rem;
-          color: white;
+
           border: none;
           background: none;
         }

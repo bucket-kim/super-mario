@@ -1,9 +1,6 @@
-import gsap from "gsap";
-import { FC, Fragment, useEffect, useRef, useState } from "react";
+import { FC, Fragment, useRef } from "react";
 import { shallow } from "zustand/shallow";
 import { useGlobalState } from "../../../State/useGlobalState";
-import { handleArrowAnimation } from "../Weather/WeatherAnimationLogic";
-import ArrowSign from "./ArrowSign/ArrowSign";
 import WeatherForecastStyleContainer from "./WeatherForecastStyleContainer";
 
 interface ForecastProps {
@@ -28,10 +25,10 @@ const WeatherForecast: FC<ForecastProps> = ({ forecastWeather }) => {
   );
   const weatherForecastDivRef = useRef<HTMLDivElement>(null);
   const forcastContainerDivRef = useRef<(HTMLDivElement | null)[]>([]);
-  const arrowButtonRef = useRef<HTMLButtonElement>(null);
+  // const arrowButtonRef = useRef<HTMLButtonElement>(null);
 
-  const [clickForecastArrow, setClickForecastArrow] = useState(false);
-  const [showForecast, setShowForecast] = useState(false);
+  // const [clickForecastArrow, setClickForecastArrow] = useState(false);
+  // const [showForecast, setShowForecast] = useState(false);
 
   const { isCelsius } = useGlobalState((state) => {
     return {
@@ -39,51 +36,51 @@ const WeatherForecast: FC<ForecastProps> = ({ forecastWeather }) => {
     };
   }, shallow);
 
-  const handleArrowClick = () => {
-    setClickForecastArrow((prev) => !prev);
-  };
+  // const handleArrowClick = () => {
+  //   setClickForecastArrow((prev) => !prev);
+  // };
 
-  useEffect(() => {
-    if (!arrowButtonRef.current) return;
-    // const height = weatherForecastDivRef.current.getBoundingClientRect().height;
-    handleArrowAnimation(
-      arrowButtonRef.current,
-      clickForecastArrow,
-      setShowForecast((prev) => !prev),
-    );
-  }, [clickForecastArrow]);
+  // useEffect(() => {
+  //   if (!arrowButtonRef.current) return;
+  //   // const height = weatherForecastDivRef.current.getBoundingClientRect().height;
+  //   handleArrowAnimation(
+  //     arrowButtonRef.current,
+  //     clickForecastArrow,
+  //     setShowForecast((prev) => !prev),
+  //   );
+  // }, [clickForecastArrow]);
 
-  useEffect(() => {
-    if (!forcastContainerDivRef.current) return;
+  // useEffect(() => {
+  //   if (!forcastContainerDivRef.current) return;
 
-    if (showForecast) {
-      gsap.to(forcastContainerDivRef.current, {
-        stagger: 0.15,
+  //   if (showForecast) {
+  //     gsap.to(forcastContainerDivRef.current, {
+  //       stagger: 0.15,
 
-        opacity: 1,
-        visibility: "visible",
-      });
-    } else {
-      gsap.to(forcastContainerDivRef.current, {
-        stagger: 0.15,
+  //       opacity: 1,
+  //       visibility: "visible",
+  //     });
+  //   } else {
+  //     gsap.to(forcastContainerDivRef.current, {
+  //       stagger: 0.15,
 
-        opacity: 0,
-        onComplete: () => {
-          forcastContainerDivRef.current.forEach((el) => {
-            if (!el) return;
-            el.style.visibility = "hidden";
-          });
-        },
-      });
-    }
-  }, [showForecast]);
+  //       opacity: 0,
+  //       onComplete: () => {
+  //         forcastContainerDivRef.current.forEach((el) => {
+  //           if (!el) return;
+  //           el.style.visibility = "hidden";
+  //         });
+  //       },
+  //     });
+  //   }
+  // }, [showForecast]);
 
   return !forecastWeather ? null : (
     <Fragment>
       <WeatherForecastStyleContainer ref={weatherForecastDivRef}>
         <div className="forecast-header">
           <p>3-Day Forecast</p>
-          <ArrowSign ref={arrowButtonRef} handleArrowClick={handleArrowClick} />
+          {/* <ArrowSign ref={arrowButtonRef} handleArrowClick={handleArrowClick} /> */}
         </div>
 
         <div className="forecast-container">

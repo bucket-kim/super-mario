@@ -114,9 +114,13 @@ const Weather: FC<WeatherProps> = ({ currentWeather }) => {
         </div>
         <div className="weather-bottom">
           <div className="temp-unit">
-            <button onClick={handleCelsiusTemp}>C</button>
+            <button onClick={handleCelsiusTemp} style={{ color: "white" }}>
+              C
+            </button>
             <span>/</span>
-            <button onClick={handleFarenheitTemp}>F</button>
+            <button onClick={handleFarenheitTemp} style={{ color: "white" }}>
+              F
+            </button>
           </div>
           {/* <div className="sunrise-timing">
             <span>

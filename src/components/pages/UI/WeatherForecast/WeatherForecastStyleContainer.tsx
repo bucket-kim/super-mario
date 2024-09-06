@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 const WeatherForecastStyleContainer = styled.div`
-  margin: 0rem 2rem;
+  /* margin: 0rem 2rem; */
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: white;
+
   font-weight: 500;
 
   .forecast-header {
@@ -20,11 +20,10 @@ const WeatherForecastStyleContainer = styled.div`
     align-items: center;
     flex-direction: column;
     justify-content: space-between;
+    pointer-events: none;
     /* padding: 0rem 1.5rem; */
 
     .weather-container {
-      visibility: hidden;
-      opacity: 0;
       width: 100%;
       height: 4rem;
       display: flex;

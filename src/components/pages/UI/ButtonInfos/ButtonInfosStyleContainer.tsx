@@ -6,7 +6,6 @@ const ButtonInfosStyleContainer = styled.div`
   left: 50%;
   opacity: 0;
   visibility: hidden;
-  color: white;
   font-family:
     -apple-system,
     -apple-system,
