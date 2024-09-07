@@ -1,4 +1,4 @@
-import { Instance, Instances } from "@react-three/drei";
+import { Float, Instance, Instances } from "@react-three/drei";
 import { FC, useMemo } from "react";
 import * as THREE from "three";
 import { GLTF } from "three-stdlib";
@@ -36,13 +36,15 @@ const Cloud: FC<CloudProps> = ({ nodes, ...props }) => {
         frustumCulled={false}
       >
         {cloud001Data.map((cloud: any, index: number) => (
-          <Instance
-            key={index}
-            castShadow
-            receiveShadow
-            position={[cloud.position.x, cloud.position.y, cloud.position.z]}
-            scale={cloud.scale}
-          />
+          <Float floatIntensity={0.1} rotationIntensity={0.2}>
+            <Instance
+              key={index}
+              castShadow
+              receiveShadow
+              position={[cloud.position.x, cloud.position.y, cloud.position.z]}
+              scale={cloud.scale}
+            />
+          </Float>
         ))}
       </Instances>
       <Instances
@@ -55,13 +57,15 @@ const Cloud: FC<CloudProps> = ({ nodes, ...props }) => {
         frustumCulled={false}
       >
         {cloud002Data.map((cloud: any, index: number) => (
-          <Instance
-            key={index}
-            position={[cloud.position.x, cloud.position.y, cloud.position.z]}
-            castShadow
-            receiveShadow
-            scale={cloud.scale}
-          />
+          <Float floatIntensity={0.1} rotationIntensity={0.2}>
+            <Instance
+              key={index}
+              position={[cloud.position.x, cloud.position.y, cloud.position.z]}
+              castShadow
+              receiveShadow
+              scale={cloud.scale}
+            />
+          </Float>
         ))}
       </Instances>
     </group>

@@ -6,6 +6,7 @@ function App() {
   return (
     <>
       <StyleProvider>
+        {/* <Loader /> */}
         <R3FPage />
         <UI />
       </StyleProvider>
