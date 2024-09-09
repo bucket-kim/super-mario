@@ -65,7 +65,7 @@ const Weather: FC<WeatherProps> = ({ currentWeather }) => {
           </div>
           <div className="weather-icon">
             <img
-              src={`images/weatherui/${currentWeather.weather[0].icon}.png`}
+              src={`images/weatherui/${currentWeather.weather[0].icon}.webp`}
               alt=""
             />
           </div>

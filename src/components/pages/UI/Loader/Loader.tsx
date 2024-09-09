@@ -16,12 +16,12 @@ const Loader = () => {
   const { loaded, total } = useProgress();
 
   const imgFrames = [
-    "/images/UI/mario/mario_01.png",
-    "/images/UI/mario/mario_02.png",
+    "/images/UI/mario/mario_01.webp",
+    "/images/UI/mario/mario_02.webp",
   ];
   const imgWhiteFrames = [
-    "/images/UI/mario/mario_white_01.png",
-    "/images/UI/mario/mario_white_02.png",
+    "/images/UI/mario/mario_white_01.webp",
+    "/images/UI/mario/mario_white_02.webp",
   ];
 
   const handleImgAnim = () => {

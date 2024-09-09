@@ -95,7 +95,7 @@ const WeatherForecast: FC<ForecastProps> = ({ forecastWeather }) => {
               </div>
               <div className="weather-icon">
                 <img
-                  src={`images/weatherui/${data.weather[0].icon}.png`}
+                  src={`images/weatherui/${data.weather[0].icon}.webp`}
                   alt=""
                 />
               </div>
