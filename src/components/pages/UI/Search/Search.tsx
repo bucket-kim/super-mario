@@ -45,7 +45,10 @@ const Search: FC<SearchProps> = ({ onSearchChange }) => {
       boxShadow: state.isFocused && null,
       outline: state.isFocused && null,
       // background: "transparent",
-      width: window.innerWidth <= 440 ? "14rem" : "22rem",
+      width:
+        window.innerWidth <= 440 || window.innerWidth <= 940
+          ? "14rem"
+          : "22rem",
       height: window.innerWidth <= 440 ? "2rem" : "3rem",
       padding: "0rem .5rem",
       fontSize: "1rem",

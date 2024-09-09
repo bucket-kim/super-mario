@@ -63,6 +63,43 @@ const WeatherForecastStyleContainer = styled.div`
     }
   }
 
+  @media only screen and (max-width: 932px) {
+    .forecast-container {
+      width: 14rem;
+      font-size: 0.8rem;
+
+      .weather-container {
+        width: 100%;
+        height: 3rem;
+
+        .weather-date {
+          color: #ffffff;
+        }
+
+        .weather-icon {
+          /* width: 12rem; */
+          height: 1.6rem;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+          }
+        }
+
+        .weather-description {
+          height: 100%;
+          /* width: 100%; */
+          width: 12rem;
+          p {
+            margin: 0rem 0.1rem;
+          }
+          p:nth-child(2) {
+            color: #ffffff;
+          }
+        }
+      }
+    }
+  }
   @media only screen and (max-width: 440px) {
     .forecast-container {
       width: 14rem;

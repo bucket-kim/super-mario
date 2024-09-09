@@ -100,6 +100,34 @@ const WeatherStyleContainer = styled.div`
     }
   }
 
+  @media only screen and (max-width: 932px) {
+    font-size: 1rem;
+    .weather-container {
+      width: 14rem;
+      .weather-mid {
+        .temperature {
+          height: 2rem;
+          h1 {
+            font-weight: 300;
+            font-size: 3rem;
+          }
+        }
+        .weather-details {
+          height: 2rem;
+        }
+      }
+      .weather-bottom {
+        .temp-unit {
+          font-size: 1rem;
+          span {
+          }
+          button {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+  }
   @media only screen and (max-width: 440px) {
     font-size: 1rem;
     .weather-container {

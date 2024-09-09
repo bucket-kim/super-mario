@@ -33,7 +33,7 @@ const handleLoadingAnimation = (
       {
         overwrite: true,
         scale: 100,
-        duration: 3,
+        duration: 2,
         ease: "sine.inOut",
         onComplete: () => {
           secondDiv.style.visibility = "hidden";
