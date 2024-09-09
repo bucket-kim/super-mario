@@ -15,11 +15,6 @@ const UIModule = ({ set }: globalStateApiType) => {
     setShowSearch: (showSearch: boolean) => {
       set({ showSearch: showSearch });
     },
-
-    appStart: false,
-    setAppStart: (appStart: boolean) => {
-      set({ appStart: appStart });
-    },
   };
 };
 

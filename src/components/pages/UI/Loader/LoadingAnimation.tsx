@@ -1,13 +1,11 @@
 import gsap from "gsap";
 
-const loadingTL = gsap.timeline({ paused: true });
-
 const handleLoadingAnimation = (
   firstDiv: HTMLDivElement,
   secondDiv: HTMLDivElement,
-  loadingIsDone: boolean,
+  onComplete: () => void,
 ) => {
-  gsap.killTweensOf(loadingTL);
+  const loadingTL = gsap.timeline({ paused: true, onComplete });
 
   loadingTL
     .fromTo(
@@ -41,7 +39,7 @@ const handleLoadingAnimation = (
       },
     );
 
-  loadingIsDone && loadingTL.play();
+  loadingTL.play();
 
   return () => loadingTL.clear();
 };

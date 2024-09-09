@@ -8,6 +8,9 @@ export interface WeatherModuleTypes {
   currentWeather: null;
   setCurrentWeather: (currentWeather: null) => void;
 
+  forecastWeather: null;
+  setForecastWeather: (forecastWeather: null) => void;
+
   isCelsius: boolean;
   setIsCelsius: (isCelsius: boolean) => void;
 }

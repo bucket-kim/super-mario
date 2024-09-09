@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { shallow } from "zustand/shallow";
 import { WEATHER_API_URL, weatherAPIKey } from "../../../api";
 import datas from "../../../datas";
@@ -8,17 +8,23 @@ import Search from "./Search/Search";
 import UIStyleContainer from "./UIStyleContainer";
 import Weather from "./Weather/Weather";
 import WeatherForecast from "./WeatherForecast/WeatherForecast";
-const UI = () => {
-  const [forecastWeather, setForecastWeather] = useState(null);
 
-  const { setCountryDayTime, currentWeather, setCurrentWeather } =
-    useGlobalState((state) => {
-      return {
-        setCountryDayTime: state.setCountryDayTime,
-        currentWeather: state.currentWeather,
-        setCurrentWeather: state.setCurrentWeather,
-      };
-    }, shallow);
+const UI = () => {
+  const {
+    setCountryDayTime,
+    currentWeather,
+    setCurrentWeather,
+    forecastWeather,
+    setForecastWeather,
+  } = useGlobalState((state) => {
+    return {
+      setCountryDayTime: state.setCountryDayTime,
+      currentWeather: state.currentWeather,
+      setCurrentWeather: state.setCurrentWeather,
+      forecastWeather: state.forecastWeather,
+      setForecastWeather: state.setForecastWeather,
+    };
+  }, shallow);
 
   const handleOnSearchChange = async (searchData: string) => {
     if (!searchData) return;

@@ -1,19 +1,37 @@
 import { useProgress } from "@react-three/drei";
-import { Fragment, useEffect, useRef, useState } from "react";
+import {
+  Dispatch,
+  Fragment,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { shallow } from "zustand/shallow";
+import { useGlobalState } from "../../../State/useGlobalState";
 import LoaderMultiplyStyleContainer from "./LoaderMultiplyStyleContainer";
 import LoaderStyleContainer from "./LoaderStyleContainer";
 import handleLoadingAnimation from "./LoadingAnimation";
 
-const Loader = () => {
+const Loader = ({ onLoadingComplete }: { onLoadingComplete: () => void }) => {
   const loaderDivRef = useRef<HTMLDivElement>(null);
   const loaderMultiplyDivRef = useRef<HTMLDivElement>(null);
-  const [currentImg, setCurrentImg] = useState("/images/UI/mario/mario_01.png");
+  const [currentImg, setCurrentImg] = useState(
+    "/images/UI/mario/mario_01.webp",
+  );
   const [currentWhiteImg, setCurrentWhiteImg] = useState(
-    "/image/UI/mario/mario_white_01.png",
+    "/images/UI/mario/mario_white_01.webp",
   );
 
-  const isLoaded = useRef(false);
   const { loaded, total } = useProgress();
+  const [isFinished, setIsFinished] = useState(false);
+  const { currentWeather, forecastWeather } = useGlobalState((state) => {
+    return {
+      currentWeather: state.currentWeather,
+      forecastWeather: state.forecastWeather,
+    };
+  }, shallow);
 
   const imgFrames = [
     "/images/UI/mario/mario_01.webp",
@@ -24,53 +42,68 @@ const Loader = () => {
     "/images/UI/mario/mario_white_02.webp",
   ];
 
-  const handleImgAnim = () => {
-    let frameIndex = 0;
-    const interval = setInterval(() => {
-      frameIndex = (frameIndex + 1) % imgFrames.length;
-      setCurrentImg(imgFrames[frameIndex]);
-    }, 200);
-
-    return () => clearInterval(interval);
-  };
-  const handleImgWhiteAnim = () => {
-    let frameIndex = 0;
-    const interval = setInterval(() => {
-      frameIndex = (frameIndex + 1) % imgWhiteFrames.length;
-      setCurrentWhiteImg(imgWhiteFrames[frameIndex]);
-    }, 200);
-
-    return () => clearInterval(interval);
-  };
-
-  useEffect(handleImgAnim, []);
-  useEffect(handleImgWhiteAnim, []);
+  const animateImages = useCallback(
+    (
+      frames: string[],
+      setImage: Dispatch<SetStateAction<string>>,
+      delay: number,
+    ) => {
+      let frameIndex = 0;
+      const interval = setInterval(() => {
+        frameIndex = (frameIndex + 1) % frames.length;
+        setImage(frames[frameIndex]);
+      }, delay);
+      return () => clearInterval(interval);
+    },
+    [],
+  );
 
   useEffect(() => {
-    if (!loaderDivRef.current || !loaderMultiplyDivRef.current) return;
+    // Play clearAnim1 while loading is in progress
+    const clearAnim1 = animateImages(imgFrames, setCurrentImg, 150);
 
-    if (loaded >= total) {
-      isLoaded.current = true;
+    if (isFinished) {
+      clearAnim1(); // Stop clearAnim1 when loading is done
+      // Start clearAnim2 for white images
+      const clearAnim2 = animateImages(imgWhiteFrames, setCurrentWhiteImg, 150);
+
+      // Trigger loading animation and call onLoadingComplete once it's done
+      handleLoadingAnimation(
+        loaderDivRef.current!,
+        loaderMultiplyDivRef.current!,
+        () => {
+          onLoadingComplete(); // Notify parent that loading is complete
+        },
+      );
+
+      return () => clearAnim2(); // Cleanup clearAnim2 on unmount
     }
 
-    handleLoadingAnimation(
-      loaderDivRef.current,
-      loaderMultiplyDivRef.current,
-      isLoaded.current,
-    );
-  }, [loaded]);
+    return () => clearAnim1(); // Cleanup clearAnim1 when the component unmounts
+  }, [isFinished]);
+
+  // Detect when loading is finished
+  useEffect(() => {
+    if (
+      loaded >= total &&
+      currentWeather !== null &&
+      forecastWeather !== null
+    ) {
+      setIsFinished(true); // Set loading status to finished
+    }
+  }, [loaded, total, currentWeather, forecastWeather]);
 
   return (
     <Fragment>
       <LoaderStyleContainer ref={loaderDivRef}>
         <div className="loading-content">
-          <img src={currentImg} alt="" />
+          <img src={currentImg} alt="Loading" />
           <h1>Let's-a go!</h1>
         </div>
       </LoaderStyleContainer>
       <LoaderMultiplyStyleContainer ref={loaderMultiplyDivRef}>
         <div className="loading-content">
-          <img src={currentWhiteImg} alt="" />
+          <img src={currentWhiteImg} alt="Loading" />
           <h1>Let's-a go!</h1>
         </div>
       </LoaderMultiplyStyleContainer>
