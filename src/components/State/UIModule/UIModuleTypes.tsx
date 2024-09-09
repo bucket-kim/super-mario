@@ -7,4 +7,7 @@ export interface UIModuleTypes {
 
   showSearch: boolean;
   setShowSearch: (showSearch: boolean) => void;
+
+  appStart: boolean;
+  setAppStart: (appStart: boolean) => void;
 }

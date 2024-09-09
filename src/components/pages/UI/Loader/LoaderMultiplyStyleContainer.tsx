@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-const LoaderStyleContainer = styled.div`
+const LoaderMultiplyStyleContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 3;
+  z-index: 2;
   width: 100%;
   height: 100%;
-  color: white;
+  mix-blend-mode: multiply;
 
   .loading-content {
     background: rgba(0, 0, 0, 1);
@@ -18,9 +18,10 @@ const LoaderStyleContainer = styled.div`
     justify-content: center;
 
     h1 {
+      color: white;
       font-size: 10rem;
     }
   }
 `;
 
-export default LoaderStyleContainer;
+export default LoaderMultiplyStyleContainer;

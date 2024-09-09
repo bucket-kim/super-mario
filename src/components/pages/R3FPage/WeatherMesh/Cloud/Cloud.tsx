@@ -36,7 +36,7 @@ const Cloud: FC<CloudProps> = ({ nodes, ...props }) => {
         frustumCulled={false}
       >
         {cloud001Data.map((cloud: any, index: number) => (
-          <Float floatIntensity={0.1} rotationIntensity={0.2}>
+          <Float floatIntensity={0.1} rotationIntensity={0.2} key={index}>
             <Instance
               key={index}
               castShadow
@@ -57,7 +57,7 @@ const Cloud: FC<CloudProps> = ({ nodes, ...props }) => {
         frustumCulled={false}
       >
         {cloud002Data.map((cloud: any, index: number) => (
-          <Float floatIntensity={0.1} rotationIntensity={0.2}>
+          <Float floatIntensity={0.1} rotationIntensity={0.2} key={index}>
             <Instance
               key={index}
               position={[cloud.position.x, cloud.position.y, cloud.position.z]}

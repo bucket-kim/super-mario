@@ -54,7 +54,7 @@ const Search: FC<SearchProps> = ({ onSearchChange }) => {
       ...provided,
       backgroundColor: "transparent",
       borderRadius: "1rem",
-      color: state.isFocused ? "black" : null,
+      color: "black",
       boxShadow: state.isFocused && null,
       outline: state.isFocused && "none",
     }),

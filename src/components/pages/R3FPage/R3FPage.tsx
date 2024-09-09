@@ -64,6 +64,9 @@ const R3FPage = () => {
         <Lights />
         <Weather isSunset={isSunset} currentWeather={currentWeather} />
         <MarioModel position={[0, -1, 0]} />
+        {/* <EffectComposer>
+          <Bloom mipmapBlur luminanceThreshold={1} />
+        </EffectComposer> */}
       </Canvas>
     </R3FPageStyleContainer>
   );
