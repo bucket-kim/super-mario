@@ -63,7 +63,10 @@ const R3FPage = () => {
         <Camera />
         <Lights />
         <Weather isSunset={isSunset} currentWeather={currentWeather} />
-        <MarioModel position={[0, -1, 0]} />
+        <MarioModel
+          position={new THREE.Vector3(0, -1, 0)}
+          currentWeather={currentWeather}
+        />
         {/* <EffectComposer>
           <Bloom mipmapBlur luminanceThreshold={1} />
         </EffectComposer> */}

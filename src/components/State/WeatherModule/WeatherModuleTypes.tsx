@@ -1,3 +1,7 @@
+export interface Weather {
+  weather: { main: string }[] | null;
+}
+
 export interface WeatherModuleTypes {
   isSunset: boolean;
   setIsSunset: (isSunset: boolean) => void;

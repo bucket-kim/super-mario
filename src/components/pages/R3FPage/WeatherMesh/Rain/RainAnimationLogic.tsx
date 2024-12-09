@@ -2,7 +2,7 @@ import gsap from "gsap";
 import * as THREE from "three";
 
 export const rainAnimation = (rainRef: THREE.Mesh[]) => {
-  rainRef.forEach((rain: any, index: number) => {
+  rainRef.forEach((rain: THREE.Mesh, index: number) => {
     if (!rain) return;
     const angle = Math.random() * Math.PI * 2;
     const radius = Math.random() * 8;

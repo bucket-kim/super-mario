@@ -22,7 +22,7 @@ const WeatherModule = ({ set }: globalStateApiType) => {
       set({ forecastWeather: forecastWeather });
     },
 
-    isCelsius: true,
+    isCelsius: false,
     setIsCelsius: (isCelsius: boolean) => {
       set({ isCelsius: isCelsius });
     },

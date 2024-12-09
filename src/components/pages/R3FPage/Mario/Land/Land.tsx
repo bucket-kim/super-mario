@@ -6,6 +6,7 @@ type GLTFResult = GLTF & {
   nodes: {
     land_geo: THREE.Mesh;
     items_geo: THREE.Mesh;
+    snow_geo: THREE.Mesh;
   };
 };
 

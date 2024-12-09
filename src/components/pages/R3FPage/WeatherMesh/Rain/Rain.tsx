@@ -49,14 +49,6 @@ const Rain: FC<RainProps> = ({ nodes, ...props }) => {
           name="rain_geo"
           scale={0.35}
         />
-        // <mesh
-        //   ref={(el) => (rainRef.current[index] = el)}
-        //   key={index}
-        //   name="rain_geo"
-        //   geometry={nodes.rain_geo.geometry}
-        //   material={rainMaterial}
-        //   userData={{ name: "rain_geo" }}
-        // />
       ))}
     </Instances>
   );

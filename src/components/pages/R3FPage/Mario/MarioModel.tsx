@@ -1,5 +1,5 @@
 import { useGLTF, useTexture } from "@react-three/drei";
-import { useMemo } from "react";
+import { FC, useMemo } from "react";
 import * as THREE from "three";
 import Buttons from "./Buttons/Buttons";
 import CharSprite from "./Character/CharSprite";
@@ -9,10 +9,16 @@ import Eyeball from "./Eyeball/Eyeball";
 import BubbleGas from "./Land/BubbleGas/BubbleGas";
 import Land from "./Land/Land";
 import { GLTFResult } from "./MarioModelTypes";
+import Snow from "./Snow/Snow";
 import Water from "./Water/Water";
 
+interface MarioModelProps {
+  position: THREE.Vector3;
+  currentWeather: any;
+}
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const MarioModel = (props: any) => {
+const MarioModel: FC<MarioModelProps> = ({ position, currentWeather }) => {
   const { nodes } = useGLTF("/models/MarioModel.glb") as unknown as GLTFResult;
 
   const landColorMap = useTexture("/images/textures/land/land_BaseColor.png");
@@ -59,6 +65,7 @@ const MarioModel = (props: any) => {
       normalMap: itemsNormalMap,
       aoMap: itemsAoMap,
       aoMapIntensity: 0.2,
+      side: THREE.DoubleSide,
     });
 
     itemsColorMap.flipY = false;
@@ -72,11 +79,12 @@ const MarioModel = (props: any) => {
   }, [itemsAoMap, itemsColorMap, itemsNormalMap, itemsRoughnessMap]);
 
   return (
-    <group {...props} dispose={null}>
+    <group position={position} dispose={null}>
       <BubbleGas />
 
       <Buttons nodes={nodes} />
       <ColorButtons nodes={nodes} buttonMaterial={itemMaterial} />
+      {currentWeather === "Snow" && <Snow nodes={nodes} />}
       <Land
         nodes={nodes}
         landMaterial={landMaterial}
