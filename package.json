@@ -28,7 +28,7 @@
     "resolve-lygia": "^1.0.4",
     "styled-components": "^6.1.11",
     "three": "^0.165.0",
-    "vercel": "^36.0.0",
+    "vercel": "^39.2.0",
     "zustand": "^4.5.4"
   },
   "devDependencies": {
