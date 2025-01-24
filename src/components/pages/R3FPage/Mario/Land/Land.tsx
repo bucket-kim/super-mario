@@ -6,7 +6,7 @@ type GLTFResult = GLTF & {
   nodes: {
     land_geo: THREE.Mesh;
     items_geo: THREE.Mesh;
-    snow_geo: THREE.Mesh;
+    snow_land_geo: THREE.Mesh;
   };
 };
 
@@ -46,6 +46,15 @@ const Land: FC<LandProps> = ({
         material={itemMaterial}
         userData={{ name: "items_geo" }}
       />
+      {/* <mesh
+        name="snow_land_geo"
+        castShadow
+        receiveShadow
+        geometry={nodes.snow_land_geo.geometry}
+        position={nodes.snow_land_geo.position}
+        material={itemMaterial}
+        userData={{ name: "snow_land_geo" }}
+      /> */}
     </group>
   );
 };

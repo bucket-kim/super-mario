@@ -84,7 +84,7 @@ const MarioModel: FC<MarioModelProps> = ({ position, currentWeather }) => {
 
       <Buttons nodes={nodes} />
       <ColorButtons nodes={nodes} buttonMaterial={itemMaterial} />
-      {currentWeather === "Snow" && <Snow nodes={nodes} />}
+      {currentWeather.weather?.[0]?.main === "Snow" && <Snow nodes={nodes} />}
       <Land
         nodes={nodes}
         landMaterial={landMaterial}

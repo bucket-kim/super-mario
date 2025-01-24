@@ -4,7 +4,7 @@ import { GLTF } from "three-stdlib";
 
 type GLTFResult = GLTF & {
   nodes: {
-    snow_geo: THREE.Mesh;
+    snow_land_geo: THREE.Mesh;
   };
 };
 
@@ -25,13 +25,13 @@ const Snow: FC<SnowProps> = ({ nodes }) => {
   return (
     <Fragment>
       <mesh
-        name="snow_geo"
+        name="snow_land_geo"
         castShadow
         receiveShadow
-        geometry={nodes.snow_geo.geometry}
-        position={nodes.snow_geo.position}
+        geometry={nodes.snow_land_geo.geometry}
+        position={nodes.snow_land_geo.position}
         material={snowMaterial}
-        userData={{ name: "items_geo" }}
+        userData={{ name: "snow_land_geo" }}
       />
     </Fragment>
   );

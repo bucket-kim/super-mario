@@ -43,7 +43,7 @@ export type GLTFResult = GLTF & {
     land_geo: THREE.Mesh;
     ocean_geo: THREE.Mesh;
     water_geo: THREE.Mesh;
-    snow_geo: THREE.Mesh;
+    snow_land_geo: THREE.Mesh;
     lake_geo: THREE.Mesh;
     greenButton_geo: THREE.Mesh;
     yellowButton_geo: THREE.Mesh;
